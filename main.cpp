@@ -1,6 +1,7 @@
 #include "MonHoc.h"
 #include "SinhVien.h"
 #include "LopTinChi.h"
+#include "Diem.h"
 #include <iostream>
 #include <cstring>
 #include <iomanip>
@@ -343,10 +344,20 @@ void quanLyLopTinChi(DanhSachLopTinChi &dsLTC, const DanhSachMonHoc &dsMH, const
                 InBangDiemLop(dsLTC, dsSV, maLTC);
                 break;
             }
-            case 11: // Quay lại
+            case 11: { // Hủy tự động theo niên khóa và học kỳ
+                int nienKhoa, hocKy;
+                std::cout << "Nhap nien khoa: ";
+                std::cin >> nienKhoa;
+                std::cout << "Nhap hoc ky: ";
+                std::cin >> hocKy;
+                clearInputBuffer();
+                HuyLopTuDongTheoNienKhoaHocKy(dsLTC, nienKhoa, hocKy);
+                break;
+            }
+            case 12: // Quay lại
                 break;
             default:
-                std::cerr << "Lỗi: Lựa chọn không hợp lệ!\n";
+                std::cerr << "Loi: Lua chon khong hop le!\n";
         }
     } while (luaChon != 11);
 }
