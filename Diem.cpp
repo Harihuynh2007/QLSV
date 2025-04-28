@@ -1,4 +1,5 @@
 #include "Diem.h"
+#include "LopTinChi.h"
 #include <iostream>
 #include <cstring>
 #include <iomanip>

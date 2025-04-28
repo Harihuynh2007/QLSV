@@ -341,31 +341,6 @@ bool XoaSVKhoiLopTC(DanhSachLopTinChi &dsLTC, int maLTC, const char* maSV) {
     return success;
 }
 
-bool NhapDiemSinhVienLopTC(DanhSachLopTinChi &dsLTC, int maLTC, const char* maSV, float diem) {
-    if (diem < 0.0f || diem > 10.0f) {
-        std::cerr << "Lỗi: Điểm phải trong khoảng từ 0.0 đến 10.0.\n";
-        return false;
-    }
-
-    int index = TimLopTinChiTheoMa(dsLTC, maLTC);
-    if (index == -1) {
-        std::cerr << "Lỗi: Lớp tín chỉ " << maLTC << " không tồn tại.\n";
-        return false;
-    }
-
-    LopTinChi* lop = dsLTC.nodes[index];
-
-    NodeDK* nodeDK = TimDangKyTheoMASV(lop->dssvdk, maSV);
-    if (nodeDK == NULL) {
-        std::cerr << "Lỗi: Sinh viên " << maSV << " chưa đăng ký lớp tín chỉ " << maLTC << ".\n";
-        return false;
-    }
-
-    nodeDK->data.DIEM = diem;
-    nodeDK->data.daCoDiem = true;
-
-    return true;
-}
 
 void InDSSVDaDangKyCuaLop(const DanhSachLopTinChi &dsLTC, const DanhSachSinhVien &dsSV, int maLTC) {
     int index = TimLopTinChiTheoMa(dsLTC, maLTC);
