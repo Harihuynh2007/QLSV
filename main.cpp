@@ -39,7 +39,7 @@ void hienThiMenuSinhVien() {
     std::cout << "1. Them sinh vien\n";
     std::cout << "2. Xoa sinh vien\n";
     std::cout << "3. Hieu chinh sinh vien\n";
-    std::cout << "4. In danh sách sinh vien\n";
+    std::cout << "4. In danh sach sinh vien\n";
     std::cout << "5. Quay lai\n";
     std::cout << "Nhap lua chon (1-5): ";
 }
@@ -57,8 +57,13 @@ void hienThiMenuLopTinChi() {
     std::cout << "8. In danh sach sinh vien da dang ky\n";
     std::cout << "9. In danh sach sinh vien sap xep\n";
     std::cout << "10. In bang diem lop tin chi\n";
-    std::cout << "11. Quay lai\n";
-    std::cout << "Nhap lua chon (1-11): ";
+    std::cout << "11. Huy lop tu dong theo nien khoa va hoc ky\n";
+    std::cout << "12. Nhap diem theo bang\n";
+    std::cout << "13. In bang diem mon hoc\n";
+    std::cout << "14. In bang diem trung binh khoa hoc\n";
+    std::cout << "15. In bang diem tong ket\n";
+    std::cout << "16. Quay lai\n";
+    std::cout << "Nhap lua chon (1-16): ";
 }
 
 // Hàm nhập thông tin môn học
@@ -67,6 +72,11 @@ void nhapMonHoc(MonHoc &mh) {
     std::cin.getline(mh.MAMH, 11);
     std::cout << "Nhap ten mon hoc (toi da 50 ky tu): ";
     std::cin.getline(mh.TENMH, 51);
+    std::cout << "Nhap so tin chi ly thuyet: ";
+    std::cin >> mh.STCLT;
+    std::cout << "Nhap so tin chi thuc hanh: ";
+    std::cin >> mh.STCTH;
+    clearInputBuffer();
 }
 
 // Hàm nhập thông tin sinh viên
@@ -91,7 +101,7 @@ void nhapLopTinChi(LopTinChi &ltc, const DanhSachMonHoc &dsMH) {
     std::cin.getline(ltc.MAMH, 11);
     // Kiểm tra MAMH tồn tại
     if (TimMonHocTheoMa(dsMH, ltc.MAMH) == -1) {
-        std::cerr << "Lỗi: Mã môn học '" << ltc.MAMH << "' không tồn tại!\n";
+        std::cerr << "Loi: Ma mon hoc '" << ltc.MAMH << "' khong ton tai!\n";
         ltc.MAMH[0] = '\0'; // Đánh dấu không hợp lệ
         return;
     }
@@ -125,9 +135,9 @@ void quanLyMonHoc(DanhSachMonHoc &dsMH) {
                 MonHoc mh;
                 nhapMonHoc(mh);
                 if (mh.MAMH[0] == '\0') {
-                    std::cerr << "Lỗi: Mã môn học không được rỗng!\n";
+                    std::cerr << "Loi: Ma mon hoc khong duoc rong!\n";
                 } else if (ThemMonHoc(dsMH, mh)) {
-                    std::cout << "Đã thêm môn học '" << mh.MAMH << "' thành công.\n";
+                    std::cout << "Da them mon hoc '" << mh.MAMH << "' thanh cong.\n";
                 }
                 break;
             }
@@ -136,7 +146,7 @@ void quanLyMonHoc(DanhSachMonHoc &dsMH) {
                 std::cout << "Nhap ma mon hoc can xoa: ";
                 std::cin.getline(maMH, 11);
                 if (XoaMonHocTheoMa(dsMH, maMH)) {
-                    std::cout << "Đã xóa môn học '" << maMH << "' thành công.\n";
+                    std::cout << "Da xoa mon hoc '" << maMH << "' thanh cong.\n";
                 }
                 break;
             }
@@ -145,11 +155,10 @@ void quanLyMonHoc(DanhSachMonHoc &dsMH) {
                 std::cout << "Nhap ma mon hoc can hieu chinh: ";
                 std::cin.getline(maMH, 11);
                 MonHoc mhMoi;
-                std::cout << "Nhap ten mon hoc moi (toi da 50 ky tu): ";
-                std::cin.getline(mhMoi.TENMH, 51);
+                nhapMonHoc(mhMoi);
                 strcpy(mhMoi.MAMH, maMH); // Giữ nguyên mã
                 if (HieuChinhMonHoc(dsMH, maMH, mhMoi)) {
-                    std::cout << "Đã hiệu chỉnh môn học '" << maMH << "' thành công.\n";
+                    std::cout << "Da hieu chinh mon hoc '" << maMH << "' thanh cong.\n";
                 }
                 break;
             }
@@ -161,7 +170,7 @@ void quanLyMonHoc(DanhSachMonHoc &dsMH) {
             case 5: // Quay lại
                 break;
             default:
-                std::cerr << "Lỗi: Lựa chọn không hợp lệ!\n";
+                std::cerr << "Loi: Lua chon khong hop le!\n";
         }
     } while (luaChon != 5);
 }
@@ -179,9 +188,9 @@ void quanLySinhVien(DanhSachSinhVien &dsSV) {
                 SinhVien sv;
                 nhapSinhVien(sv);
                 if (sv.MASV[0] == '\0') {
-                    std::cerr << "Lỗi: Mã sinh viên không được rỗng!\n";
+                    std::cerr << "Loi: Ma sinh vien khong duoc rong!\n";
                 } else if (ThemSinhVien(dsSV, sv)) {
-                    std::cout << "Đã thêm sinh viên '" << sv.MASV << "' thành công.\n";
+                    std::cout << "Da them sinh vien '" << sv.MASV << "' thanh cong.\n";
                 }
                 break;
             }
@@ -190,7 +199,7 @@ void quanLySinhVien(DanhSachSinhVien &dsSV) {
                 std::cout << "Nhap ma sinh vien can xoa: ";
                 std::cin.getline(maSV, MAX_MASV_LEN + 1);
                 if (XoaSinhVienTheoMa(dsSV, maSV)) {
-                    std::cout << "Đã xóa sinh viên '" << maSV << "' thành công.\n";
+                    std::cout << "Da xoa sinh vien '" << maSV << "' thanh cong.\n";
                 }
                 break;
             }
@@ -202,7 +211,7 @@ void quanLySinhVien(DanhSachSinhVien &dsSV) {
                 nhapSinhVien(svMoi);
                 strcpy(svMoi.MASV, maSV); // Giữ nguyên mã
                 if (HieuChinhSinhVien(dsSV, maSV, svMoi)) {
-                    std::cout << "Đã hiệu chỉnh sinh viên '" << maSV << "' thành công.\n";
+                    std::cout << "Da hieu chinh sinh vien '" << maSV << "' thanh cong.\n";
                 }
                 break;
             }
@@ -213,7 +222,7 @@ void quanLySinhVien(DanhSachSinhVien &dsSV) {
             case 5: // Quay lại
                 break;
             default:
-                std::cerr << "Lỗi: Lựa chọn không hợp lệ!\n";
+                std::cerr << "Loi: Lua chon khong hop le!\n";
         }
     } while (luaChon != 5);
 }
@@ -233,7 +242,7 @@ void quanLyLopTinChi(DanhSachLopTinChi &dsLTC, const DanhSachMonHoc &dsMH, const
                 if (ltc.MAMH[0] != '\0') {
                     int maLTC = ThemLopTC(dsLTC, ltc);
                     if (maLTC != -1) {
-                        std::cout << "Đã thêm lớp tín chỉ với mã " << maLTC << " thành công.\n";
+                        std::cout << "Da them lop tin chi voi ma " << maLTC << " thanh cong.\n";
                     }
                 }
                 break;
@@ -244,7 +253,7 @@ void quanLyLopTinChi(DanhSachLopTinChi &dsLTC, const DanhSachMonHoc &dsMH, const
                 std::cin >> maLTC;
                 clearInputBuffer();
                 if (XoaLopTCTheoMa(dsLTC, maLTC)) {
-                    std::cout << "Đã xóa lớp tín chỉ " << maLTC << " thành công.\n";
+                    std::cout << "Da xoa lop tin chi " << maLTC << " thanh cong.\n";
                 }
                 break;
             }
@@ -263,7 +272,7 @@ void quanLyLopTinChi(DanhSachLopTinChi &dsLTC, const DanhSachMonHoc &dsMH, const
                 ltcMoi.huyLop = (huyLop == 1);
                 clearInputBuffer();
                 if (HieuChinhLopTinChi(dsLTC, maLTC, ltcMoi)) {
-                    std::cout << "Đã hiệu chỉnh lớp tín chỉ " << maLTC << " thành công.\n";
+                    std::cout << "Da hieu chinh lop tin chi " << maLTC << " thanh cong.\n";
                 }
                 break;
             }
@@ -273,7 +282,7 @@ void quanLyLopTinChi(DanhSachLopTinChi &dsLTC, const DanhSachMonHoc &dsMH, const
                 std::cin >> maLTC;
                 clearInputBuffer();
                 if (HuyLopTinChi(dsLTC, maLTC)) {
-                    std::cout << "Đã hủy lớp tín chỉ " << maLTC << " thành công.\n";
+                    std::cout << "Da huy lop tin chi " << maLTC << " thanh cong.\n";
                 }
                 break;
             }
@@ -286,7 +295,7 @@ void quanLyLopTinChi(DanhSachLopTinChi &dsLTC, const DanhSachMonHoc &dsMH, const
                 std::cout << "Nhap ma sinh vien: ";
                 std::cin.getline(maSV, MAX_MASV_LEN + 1);
                 if (ThemSVVaoLopTC(dsLTC, dsSV, maLTC, maSV)) {
-                    std::cout << "Đã thêm sinh viên '" << maSV << "' vào lớp tín chỉ " << maLTC << " thành công.\n";
+                    std::cout << "Da them sinh vien '" << maSV << "' vao lop tin chi " << maLTC << " thanh cong.\n";
                 }
                 break;
             }
@@ -299,7 +308,7 @@ void quanLyLopTinChi(DanhSachLopTinChi &dsLTC, const DanhSachMonHoc &dsMH, const
                 std::cout << "Nhap ma sinh vien: ";
                 std::cin.getline(maSV, MAX_MASV_LEN + 1);
                 if (XoaSVKhoiLopTC(dsLTC, maLTC, maSV)) {
-                    std::cout << "Đã xóa sinh viên '" << maSV << "' khỏi lớp tín chỉ " << maLTC << " thành công.\n";
+                    std::cout << "Da xoa sinh vien '" << maSV << "' khoi lop tin chi " << maLTC << " thanh cong.\n";
                 }
                 break;
             }
@@ -316,7 +325,7 @@ void quanLyLopTinChi(DanhSachLopTinChi &dsLTC, const DanhSachMonHoc &dsMH, const
                 std::cin >> diem;
                 clearInputBuffer();
                 if (NhapDiemSinhVienLopTC(dsLTC, maLTC, maSV, diem)) {
-                    std::cout << "Đã nhập điểm " << diem << " cho sinh viên '" << maSV << "' trong lớp tín chỉ " << maLTC << ".\n";
+                    std::cout << "Da nhap diem " << diem << " cho sinh vien '" << maSV << "' trong lop tin chi " << maLTC << ".\n";
                 }
                 break;
             }
@@ -354,12 +363,41 @@ void quanLyLopTinChi(DanhSachLopTinChi &dsLTC, const DanhSachMonHoc &dsMH, const
                 HuyLopTuDongTheoNienKhoaHocKy(dsLTC, nienKhoa, hocKy);
                 break;
             }
-            case 12: // Quay lại
+            case 12: { // Nhập điểm theo bảng
+                int maLTC;
+                std::cout << "Nhap ma lop tin chi: ";
+                std::cin >> maLTC;
+                clearInputBuffer();
+                NhapDiemTheoBang(dsLTC, dsSV, maLTC);
+                break;
+            }
+            case 13: { // In bảng điểm môn học
+                char maMH[11];
+                std::cout << "Nhap ma mon hoc: ";
+                std::cin.getline(maMH, 11);
+                InBangDiemMonHoc(dsLTC, dsSV, dsMH, maMH);
+                break;
+            }
+            case 14: { // In bảng điểm trung bình khóa học
+                char maLop[16];
+                std::cout << "Nhap ma lop: ";
+                std::cin.getline(maLop, 16);
+                InBangDiemTrungBinhKhoa(dsLTC, dsSV, dsMH, maLop);
+                break;
+            }
+            case 15: { // In bảng điểm tổng kết
+                char maLop[16];
+                std::cout << "Nhap ma lop: ";
+                std::cin.getline(maLop, 16);
+                InBangDiemTongKet(dsLTC, dsSV, dsMH, maLop);
+                break;
+            }
+            case 16: // Quay lại
                 break;
             default:
                 std::cerr << "Loi: Lua chon khong hop le!\n";
         }
-    } while (luaChon != 11);
+    } while (luaChon != 16);
 }
 
 int main() {
@@ -392,7 +430,7 @@ int main() {
                 std::cout << "Cam on ban da su dung chuong trinh!\n";
                 break;
             default:
-                std::cerr << "Lỗi: Lựa chọn không hợp lệ!\n";
+                std::cerr << "Loi: Lua chon khong hop le!\n";
         }
     } while (luaChon != 4);
 

@@ -3,17 +3,12 @@
 
 #include "LopTinChi.h"
 #include "SinhVien.h"
+#include "MonHoc.h"
 
-// Hàm nhập điểm cho sinh viên trong lớp tín chỉ
 bool NhapDiemSinhVienLopTC(DanhSachLopTinChi &dsLTC, int maLTC, const char* maSV, float diem);
-
-// Hàm in bảng điểm môn học
-void InBangDiemMonHoc(const DanhSachLopTinChi &dsLTC, const DanhSachSinhVien &dsSV, const char* maMH);
-
-// Hàm in bảng điểm trung bình khoa
-void InBangDiemTrungBinhKhoa(const DanhSachLopTinChi &dsLTC, const DanhSachSinhVien &dsSV, const char* tenLop);
-
-// Hàm in bảng điểm tổng kết của sinh viên
-void InBangDiemTongKet(const DanhSachLopTinChi &dsLTC, const DanhSachSinhVien &dsSV, const char* maSV);
+void NhapDiemTheoBang(DanhSachLopTinChi &dsLTC, const DanhSachSinhVien &dsSV, int maLTC);
+void InBangDiemMonHoc(const DanhSachLopTinChi &dsLTC, const DanhSachSinhVien &dsSV, const DanhSachMonHoc &dsMH, const char* maMH);
+void InBangDiemTrungBinhKhoa(const DanhSachLopTinChi &dsLTC, const DanhSachSinhVien &dsSV, const DanhSachMonHoc &dsMH, const char* maLop);
+void InBangDiemTongKet(const DanhSachLopTinChi &dsLTC, const DanhSachSinhVien &dsSV, const DanhSachMonHoc &dsMH, const char* maLop);
 
 #endif // DIEM_H

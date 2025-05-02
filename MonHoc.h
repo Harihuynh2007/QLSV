@@ -8,6 +8,8 @@
 struct MonHoc {
 	char MAMH[11];
 	char TENMH[51];
+	int STCLT; 
+    int STCTH;
 };
 
 struct DanhSachMonHoc{
