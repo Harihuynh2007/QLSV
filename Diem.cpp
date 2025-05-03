@@ -1,10 +1,13 @@
 #include "Diem.h"
 #include "LopTinChi.h"
 #include "MonHoc.h"
+#include "AVLTree.h"
 #include <iostream>
 #include <cstring>
 #include <iomanip>
 #include <new>
+#include <vector> // Thêm để sử dụng std::vector
+#include <string> // Thêm để sử dụng std::string
 
 // Hàm kiểm tra chuỗi hợp lệ
 bool KiemTraChuoiHopLe(const char* str, int maxLen) {
@@ -152,9 +155,9 @@ void InBangDiemMonHoc(const DanhSachLopTinChi &dsLTC, const DanhSachSinhVien &ds
 
     // Tìm tên môn học
     char tenMH[51] = "Unknown";
-    int indexMH = TimMonHocTheoMa(dsMH, maMH);
-    if (indexMH != -1) {
-        strcpy(tenMH, dsMH.nodes[indexMH].TENMH);
+    NodeAVL* pMH = TimMonHocTheoMa(dsMH, maMH); // Trả về NodeAVL*
+    if (pMH != NULL) {
+        strcpy(tenMH, pMH->data.TENMH);
     }
 
     // Đếm số lớp tín chỉ của môn học
@@ -317,8 +320,8 @@ void InBangDiemTrungBinhKhoa(const DanhSachLopTinChi &dsLTC, const DanhSachSinhV
                 NodeDK* pDK = dsLTC.nodes[j]->dssvdk;
                 while (pDK != NULL) {
                     if (strcmp(pDK->data.MASV, diemArr[i].MASV) == 0 && pDK->data.daCoDiem) {
-                        int indexMH = TimMonHocTheoMa(dsMH, dsLTC.nodes[j]->MAMH);
-                        int tinChi = (indexMH != -1) ? (dsMH.nodes[indexMH].STCLT + dsMH.nodes[indexMH].STCTH) : 0;
+                        NodeAVL* pMH = TimMonHocTheoMa(dsMH, dsLTC.nodes[j]->MAMH);
+                        int tinChi = (pMH != NULL) ? (pMH->data.STCLT + pMH->data.STCTH) : 0;
                         tongDiem += pDK->data.DIEM * tinChi;
                         tongTinChi += tinChi;
                     }
@@ -403,12 +406,12 @@ void InBangDiemTongKet(const DanhSachLopTinChi &dsLTC, const DanhSachSinhVien &d
         return;
     }
 
-    // Lấy danh sách môn học
-    char maMHList[100][11];
-    int numMH = dsMH.soLuong;
-    for (int i = 0; i < numMH; i++) {
-        strcpy(maMHList[i], dsMH.nodes[i].MAMH);
-    }
+    // Lấy danh sách môn học bằng cách duyệt cây AVL
+    std::vector<std::string> maMHList;
+    InorderTraversal(dsMH, [&maMHList](MonHoc mh) {
+        maMHList.push_back(std::string(mh.MAMH));
+    });
+    int numMH = maMHList.size();
 
     // Khởi tạo mảng điểm
     int idx = 0;
@@ -435,7 +438,7 @@ void InBangDiemTongKet(const DanhSachLopTinChi &dsLTC, const DanhSachSinhVien &d
                 while (pDK != NULL) {
                     if (strcmp(pDK->data.MASV, diemArr[i].MASV) == 0 && pDK->data.daCoDiem) {
                         for (int k = 0; k < numMH; k++) {
-                            if (strcmp(dsLTC.nodes[j]->MAMH, maMHList[k]) == 0) {
+                            if (strcmp(dsLTC.nodes[j]->MAMH, maMHList[k].c_str()) == 0) {
                                 if (diemArr[i].diem[k] < pDK->data.DIEM) {
                                     diemArr[i].diem[k] = pDK->data.DIEM;
                                 }

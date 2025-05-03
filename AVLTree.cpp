@@ -1,4 +1,5 @@
 #include "AVLTree.h"
+#include "MonHoc.h"
 #include <iostream>
 #include <cstring>
 #include <iomanip>
@@ -170,7 +171,7 @@ void UpdateAVL(AVLTree root, const char* key, MonHoc newData) {
 }
 
 // Hàm duyệt inorder
-void InorderTraversal(AVLTree root, void (*visit)(MonHoc)) {
+void InorderTraversal(AVLTree root, std::function<void(MonHoc)> visit) {
     if (root != NULL) {
         InorderTraversal(root->left, visit);
         visit(root->data);

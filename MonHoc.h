@@ -1,38 +1,31 @@
 #ifndef MONHOC_H
 #define MONHOC_H
 
-#include <stdlib.h> // For malloc, realloc, free
-#include <string.h> // For strcpy, strcmp
-#include <stdio.h>  // For printf, NULL
+// Forward declaration của AVLTree
+struct NodeAVL;
+typedef NodeAVL* AVLTree;
 
 struct MonHoc {
-	char MAMH[11];
-	char TENMH[51];
-	int STCLT; 
+    char MAMH[11];
+    char TENMH[51];
+    int STCLT;
     int STCTH;
 };
 
-struct DanhSachMonHoc{
-	MonHoc *nodes;  
-    int capacity;
-    int soLuong;
-};
+typedef AVLTree DanhSachMonHoc;
 
-// Các hàm quản lý cơ bản
-void KhoiTaoDSMonHoc(DanhSachMonHoc &ds);
+// Hàm quản lý danh sách môn học
+NodeAVL* TimMonHocTheoMa(DanhSachMonHoc ds, const char* maMH);
+DanhSachMonHoc ThemMonHoc(DanhSachMonHoc ds, MonHoc mh);
+DanhSachMonHoc XoaMonHoc(DanhSachMonHoc ds, const char* maMH);
+void CapNhatMonHoc(DanhSachMonHoc ds, const char* maMH, MonHoc mhMoi);
+void InDanhSachMonHoc(DanhSachMonHoc ds);
+void InDanhSachMonHocSapXepTheoTen(DanhSachMonHoc ds);
 void GiaiPhongDSMonHoc(DanhSachMonHoc &ds);
-bool IsEmpty(const DanhSachMonHoc &ds);
-bool IsFull(const DanhSachMonHoc &ds);
+int DemSoMonHoc(DanhSachMonHoc ds);
 
-// Các hàm thao tác trên danh sách
-int TimMonHocTheoMa(const DanhSachMonHoc &ds, const char* maMH);
-bool ThemMonHoc(DanhSachMonHoc &ds, MonHoc mh);
-bool XoaMonHocTaiIndex(DanhSachMonHoc &ds, int index);
-bool XoaMonHocTheoMa(DanhSachMonHoc &ds, const char* maMH);
-bool HieuChinhMonHoc(DanhSachMonHoc &ds, const char* maMH, MonHoc mhMoi);
+// Hàm hỗ trợ cho sắp xếp
+void ThuThapMonHoc(DanhSachMonHoc ds, MonHoc* &arr, int &size, int &capacity);
+void SapXepTheoTenMonHoc(MonHoc* arr, int size);
 
-// Các hàm xuất và sắp xếp
-void InDanhSachMonHoc(const DanhSachMonHoc &ds);
-void SapXepMonHocTheoTen(DanhSachMonHoc &ds);
-
-#endif 
+#endif // MONHOC_H

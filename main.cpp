@@ -28,9 +28,10 @@ void hienThiMenuMonHoc() {
     std::cout << "1. Them mon hoc\n";
     std::cout << "2. Xoa mon hoc\n";
     std::cout << "3. Hieu chinh mon hoc\n";
-    std::cout << "4. In danh sach mon hoc\n";
-    std::cout << "5. Quay lai\n";
-    std::cout << "Nhap lua chon (1-5): ";
+    std::cout << "4. In danh sach mon hoc (theo MAMH)\n";
+    std::cout << "5. In danh sach mon hoc (theo TENMH)\n";
+    std::cout << "6. Quay lai\n";
+    std::cout << "Nhap lua chon (1-6): ";
 }
 
 // Hàm hiển thị menu sinh viên
@@ -100,7 +101,7 @@ void nhapLopTinChi(LopTinChi &ltc, const DanhSachMonHoc &dsMH) {
     std::cout << "Nhap ma mon hoc (toi da 10 ky tu): ";
     std::cin.getline(ltc.MAMH, 11);
     // Kiểm tra MAMH tồn tại
-    if (TimMonHocTheoMa(dsMH, ltc.MAMH) == -1) {
+    if (!TimMonHocTheoMa(dsMH, ltc.MAMH)) {
         std::cerr << "Loi: Ma mon hoc '" << ltc.MAMH << "' khong ton tai!\n";
         ltc.MAMH[0] = '\0'; // Đánh dấu không hợp lệ
         return;
@@ -136,7 +137,8 @@ void quanLyMonHoc(DanhSachMonHoc &dsMH) {
                 nhapMonHoc(mh);
                 if (mh.MAMH[0] == '\0') {
                     std::cerr << "Loi: Ma mon hoc khong duoc rong!\n";
-                } else if (ThemMonHoc(dsMH, mh)) {
+                } else {
+                    dsMH = ThemMonHoc(dsMH, mh);
                     std::cout << "Da them mon hoc '" << mh.MAMH << "' thanh cong.\n";
                 }
                 break;
@@ -145,9 +147,7 @@ void quanLyMonHoc(DanhSachMonHoc &dsMH) {
                 char maMH[11];
                 std::cout << "Nhap ma mon hoc can xoa: ";
                 std::cin.getline(maMH, 11);
-                if (XoaMonHocTheoMa(dsMH, maMH)) {
-                    std::cout << "Da xoa mon hoc '" << maMH << "' thanh cong.\n";
-                }
+                dsMH = XoaMonHoc(dsMH, maMH);
                 break;
             }
             case 3: { // Hiệu chỉnh môn học
@@ -156,23 +156,23 @@ void quanLyMonHoc(DanhSachMonHoc &dsMH) {
                 std::cin.getline(maMH, 11);
                 MonHoc mhMoi;
                 nhapMonHoc(mhMoi);
-                strcpy(mhMoi.MAMH, maMH); // Giữ nguyên mã
-                if (HieuChinhMonHoc(dsMH, maMH, mhMoi)) {
-                    std::cout << "Da hieu chinh mon hoc '" << maMH << "' thanh cong.\n";
-                }
+                CapNhatMonHoc(dsMH, maMH, mhMoi);
                 break;
             }
-            case 4: { // In danh sách môn học
-                SapXepMonHocTheoTen(dsMH);
+            case 4: { // In danh sách môn học (theo MAMH)
                 InDanhSachMonHoc(dsMH);
                 break;
             }
-            case 5: // Quay lại
+            case 5: { // In danh sách môn học (theo TENMH)
+                InDanhSachMonHocSapXepTheoTen(dsMH);
+                break;
+            }
+            case 6: // Quay lại
                 break;
             default:
                 std::cerr << "Loi: Lua chon khong hop le!\n";
         }
-    } while (luaChon != 5);
+    } while (luaChon != 6);
 }
 
 // Hàm quản lý sinh viên
@@ -401,12 +401,11 @@ void quanLyLopTinChi(DanhSachLopTinChi &dsLTC, const DanhSachMonHoc &dsMH, const
 }
 
 int main() {
-    DanhSachMonHoc dsMH;
+    DanhSachMonHoc dsMH = NULL; // Khởi tạo cây AVL rỗng
     DanhSachSinhVien dsSV;
     DanhSachLopTinChi dsLTC;
 
-    // Khởi tạo danh sách
-    KhoiTaoDSMonHoc(dsMH);
+    // Khởi tạo danh sách sinh viên và lớp tín chỉ
     KhoiTaoDSSinhVien(dsSV);
     KhoiTaoDSLTC(dsLTC);
 

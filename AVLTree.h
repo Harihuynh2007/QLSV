@@ -4,13 +4,10 @@
 #include <stdlib.h>
 #include <string.h>
 #include <stdio.h>
+#include <functional> // Thêm để sử dụng std::function
 
-struct MonHoc {
-    char MAMH[11];
-    char TENMH[51];
-    int STCLT;
-    int STCTH;
-};
+// Bao gồm MonHoc.h để có định nghĩa đầy đủ của struct MonHoc
+#include "MonHoc.h"
 
 struct NodeAVL {
     MonHoc data;
@@ -21,16 +18,16 @@ struct NodeAVL {
 
 typedef NodeAVL* AVLTree;
 
-// Ham quan ly cay AVL
+// Hàm quản lý cây AVL
 NodeAVL* SearchAVL(AVLTree root, const char* key);
 AVLTree InsertAVL(AVLTree root, MonHoc data);
 AVLTree DeleteAVL(AVLTree root, const char* key);
 void UpdateAVL(AVLTree root, const char* key, MonHoc newData);
-void InorderTraversal(AVLTree root, void (*visit)(MonHoc));
+void InorderTraversal(AVLTree root, std::function<void(MonHoc)> visit); // Sử dụng std::function
 void FreeAVL(AVLTree &root);
 int CountNodes(AVLTree root);
 
-// Ham ho tro
+// Hàm hỗ trợ
 int Height(NodeAVL* node);
 int Max(int a, int b);
 NodeAVL* RotateRight(NodeAVL* y);
