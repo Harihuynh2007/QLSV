@@ -4,8 +4,8 @@
 CPP      = g++.exe
 CC       = gcc.exe
 WINDRES  = windres.exe
-OBJ      = main.o MonHoc.o SinhVien.o LopTinChi.o Diem.o LopSV.o
-LINKOBJ  = main.o MonHoc.o SinhVien.o LopTinChi.o Diem.o LopSV.o
+OBJ      = main.o MonHoc.o SinhVien.o LopTinChi.o Diem.o LopSV.o AVLTree.o
+LINKOBJ  = main.o MonHoc.o SinhVien.o LopTinChi.o Diem.o LopSV.o AVLTree.o
 LIBS     = -L"C:/Program Files (x86)/Embarcadero/Dev-Cpp/TDM-GCC-64/lib" -L"C:/Program Files (x86)/Embarcadero/Dev-Cpp/TDM-GCC-64/x86_64-w64-mingw32/lib" -static-libgcc
 INCS     = -I"C:/Program Files (x86)/Embarcadero/Dev-Cpp/TDM-GCC-64/include" -I"C:/Program Files (x86)/Embarcadero/Dev-Cpp/TDM-GCC-64/x86_64-w64-mingw32/include" -I"C:/Program Files (x86)/Embarcadero/Dev-Cpp/TDM-GCC-64/lib/gcc/x86_64-w64-mingw32/9.2.0/include"
 CXXINCS  = -I"C:/Program Files (x86)/Embarcadero/Dev-Cpp/TDM-GCC-64/include" -I"C:/Program Files (x86)/Embarcadero/Dev-Cpp/TDM-GCC-64/x86_64-w64-mingw32/include" -I"C:/Program Files (x86)/Embarcadero/Dev-Cpp/TDM-GCC-64/lib/gcc/x86_64-w64-mingw32/9.2.0/include" -I"C:/Program Files (x86)/Embarcadero/Dev-Cpp/TDM-GCC-64/lib/gcc/x86_64-w64-mingw32/9.2.0/include/c++"
@@ -41,3 +41,6 @@ Diem.o: Diem.cpp
 
 LopSV.o: LopSV.cpp
 	$(CPP) -c LopSV.cpp -o LopSV.o $(CXXFLAGS)
+
+AVLTree.o: AVLTree.cpp
+	$(CPP) -c AVLTree.cpp -o AVLTree.o $(CXXFLAGS)
