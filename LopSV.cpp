@@ -88,3 +88,42 @@ void ExtendLopArray(DanhSachLopSV &ds) {
     ds.lop = new_lop;
     ds.capacity = new_capacity;
 }
+
+#include <fstream>
+
+void SaveDanhSachSinhVien(DanhSachSinhVien first, std::ofstream &file) {
+    NodeSV* current = first;
+    while (current != NULL) {
+        file << current->data.MASV << "|"
+             << current->data.HO << "|"
+             << current->data.TEN << "|"
+             << current->data.PHAI << "|"
+             << current->data.SODT << "|"
+             << current->data.LOP << std::endl;
+        current = current->next;
+    }
+}
+
+void SaveDanhSachLopSV(DanhSachLopSV &ds, const char* filename) {
+    std::ofstream file(filename);
+    if (!file.is_open()) {
+        std::cerr << "Khong the mo file de ghi LopSV!\n";
+        return;
+    }
+
+    for (int i = 0; i < ds.n; i++) {
+        // Ghi thông tin lớp
+        file << ds.lop[i].MALOP << "|"
+             << ds.lop[i].TENLOP << std::endl;
+        
+        // Ghi danh sách sinh viên của lớp
+        SaveDanhSachSinhVien(ds.lop[i].dssv, file);
+
+        // Kết thúc 1 lớp
+        file << "#ENDCLASS" << std::endl;
+    }
+
+    // Ghi kết thúc file
+    file << "#END" << std::endl;
+    file.close();
+}

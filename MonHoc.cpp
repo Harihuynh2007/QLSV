@@ -3,6 +3,7 @@
 #include <iostream>
 #include <cstring>
 #include <iomanip>
+#include <fstream>
 
 // Hàm tìm kiếm môn học theo mã
 NodeAVL* TimMonHocTheoMa(DanhSachMonHoc ds, const char* maMH) {
@@ -129,6 +130,26 @@ void InDanhSachMonHocSapXepTheoTen(DanhSachMonHoc ds) {
 
     // Giải phóng bộ nhớ
     delete[] arr;
+}
+
+void SaveDanhSachMonHoc_InOrder(AVLTree root, std::ofstream &file) {
+    if (root == NULL) return;
+    SaveDanhSachMonHoc_InOrder(root->left, file);
+    file << root->data.MAMH << "|"
+         << root->data.TENMH << "|"
+         << root->data.STCLT << "|"
+         << root->data.STCTH << std::endl;
+    SaveDanhSachMonHoc_InOrder(root->right, file);
+}
+
+void SaveDanhSachMonHoc(AVLTree ds, const char* filename) {
+    std::ofstream file(filename);
+    if (!file.is_open()) {
+        std::cerr << "Khong the mo file de ghi MonHoc!\n";
+        return;
+    }
+    SaveDanhSachMonHoc_InOrder(ds, file);
+    file.close();
 }
 
 // Hàm giải phóng bộ nhớ
