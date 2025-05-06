@@ -189,3 +189,70 @@ void InDanhSachSinhVien(const DanhSachSinhVien first) {
     
     std::cout << "Tong so sinh vien: " << count << std::endl;
 }
+
+void InDanhSachSinhVienSapXepTheoTen(const DanhSachSinhVien first) {
+    if (IsEmpty(first)) {
+        std::cout << "Danh sach sinh vien rong.\n";
+        return;
+    }
+
+    // Đếm số sinh viên
+    int count = 0;
+    NodeSV* p = first;
+    while (p != NULL) {
+        count++;
+        p = p->next;
+    }
+
+    // Tạo mảng con trỏ để lưu các sinh viên
+    NodeSV** svArr = new NodeSV*[count];
+    p = first;
+    for (int i = 0; i < count; i++) {
+        svArr[i] = p;
+        p = p->next;
+    }
+
+    // Sắp xếp nổi bọt theo TEN + HO
+    for (int i = 0; i < count - 1; i++) {
+        for (int j = 0; j < count - i - 1; j++) {
+            int cmp = strcmp(svArr[j]->data.TEN, svArr[j + 1]->data.TEN);
+            if (cmp > 0 || (cmp == 0 && strcmp(svArr[j]->data.HO, svArr[j + 1]->data.HO) > 0)) {
+                NodeSV* temp = svArr[j];
+                svArr[j] = svArr[j + 1];
+                svArr[j + 1] = temp;
+            }
+        }
+    }
+
+    // In danh sách đã sắp xếp
+    std::cout << "\n--- Danh Sach Sinh Vien (Sap xep theo ten + ho) ---\n";
+    std::cout << std::left 
+              << std::setw(4) << "STT"
+              << " | " << std::setw(15) << "MA SV"
+              << " | " << std::setw(30) << "HO"
+              << " | " << std::setw(10) << "TEN"
+              << " | " << std::setw(4) << "PHAI"
+              << " | " << "SO DIEN THOAI" << std::endl;
+    
+    std::cout << std::setfill('-')
+              << std::setw(4) << "-" << "-|-"
+              << std::setw(15) << "-" << "-|-"
+              << std::setw(30) << "-" << "-|-"
+              << std::setw(10) << "-" << "-|-"
+              << std::setw(4) << "-" << "-|-"
+              << std::setw(15) << "-" << std::endl;
+    std::cout << std::setfill(' ');
+
+    for (int i = 0; i < count; i++) {
+        std::cout << std::left
+                  << std::setw(4) << (i + 1)
+                  << " | " << std::setw(15) << svArr[i]->data.MASV
+                  << " | " << std::setw(30) << svArr[i]->data.HO
+                  << " | " << std::setw(10) << svArr[i]->data.TEN
+                  << " | " << std::setw(4) << svArr[i]->data.PHAI
+                  << " | " << svArr[i]->data.SODT << std::endl;
+    }
+
+    // Giải phóng mảng con trỏ
+    delete[] svArr;
+}

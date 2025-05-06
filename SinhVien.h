@@ -40,5 +40,7 @@ bool HieuChinhSinhVien(DanhSachSinhVien first, const char* maSV, const SinhVien 
 
 // Hàm xuất danh sách
 void InDanhSachSinhVien(const DanhSachSinhVien first);
+void InDanhSachSinhVienSapXepTheoTen(const DanhSachSinhVien first);
+
 
 #endif // SINHVIEN_H

@@ -2,6 +2,7 @@
 #include "SinhVien.h"
 #include "LopTinChi.h"
 #include "Diem.h"
+#include "LopSV.h"
 #include <iostream>
 #include <cstring>
 #include <iomanip>
@@ -12,15 +13,109 @@ void clearInputBuffer() {
     std::cin.ignore(10000, '\n');
 }
 
-// Hàm hiển thị menu chính
+void hienThiMenuLopSV() {
+    std::cout << "\n--- QUAN LY LOP SINH VIEN ---\n";
+    std::cout << "1. Them lop sinh vien\n";
+    std::cout << "2. Xoa lop sinh vien\n";
+    std::cout << "3. Hieu chinh lop sinh vien\n";
+    std::cout << "4. Nhap sinh vien cho lop\n";
+    std::cout << "5. In danh sach sinh vien cua lop\n";
+    std::cout << "6. Quay lai\n";
+    std::cout << "Nhap lua chon (1-6): ";
+}
+
+void quanLyLopSV(DanhSachLopSV &ds) {
+    int luaChon;
+    do {
+        hienThiMenuLopSV();
+        std::cin >> luaChon;
+        std::cin.ignore(10000, '\n');
+
+        switch (luaChon) {
+            case 1: {
+                LopSV lop;
+                std::cout << "Nhap ma lop (toi da 15 ky tu): ";
+                std::cin.getline(lop.MALOP, 16);
+                std::cout << "Nhap ten lop (toi da 50 ky tu): ";
+                std::cin.getline(lop.TENLOP, 51);
+                lop.dssv = NULL;
+                ThemLopSV(ds, lop);
+                break;
+            }
+            case 2: {
+                char maLop[16];
+                std::cout << "Nhap ma lop can xoa: ";
+                std::cin.getline(maLop, 16);
+                XoaLopSV(ds, maLop);
+                break;
+            }
+            case 3: {
+                char maLop[16];
+                std::cout << "Nhap ma lop can hieu chinh: ";
+                std::cin.getline(maLop, 16);
+                LopSV lopMoi;
+                std::cout << "Nhap ten lop moi: ";
+                std::cin.getline(lopMoi.TENLOP, 51);
+                HieuChinhLopSV(ds, maLop, lopMoi);
+                break;
+            }
+            case 4: {
+                char maLop[16];
+                std::cout << "Nhap ma lop de them sinh vien: ";
+                std::cin.getline(maLop, 16);
+                int index = TimLopSV(ds, maLop);
+                if (index == -1) {
+                    std::cerr << "Khong tim thay lop '" << maLop << "'.\n";
+                } else {
+                    while (true) {
+                        SinhVien sv;
+                        std::cout << "Nhap ma sinh vien (nhap rong de dung): ";
+                        std::cin.getline(sv.MASV, MAX_MASV_LEN + 1);
+                        if (strlen(sv.MASV) == 0) break;
+                        std::cout << "Nhap ho sinh vien: ";
+                        std::cin.getline(sv.HO, MAX_HO_LEN + 1);
+                        std::cout << "Nhap ten sinh vien: ";
+                        std::cin.getline(sv.TEN, MAX_TEN_LEN + 1);
+                        std::cout << "Nhap phai (Nam/Nu/Khac): ";
+                        std::cin.getline(sv.PHAI, MAX_PHAI_LEN + 1);
+                        std::cout << "Nhap so dien thoai: ";
+                        std::cin.getline(sv.SODT, MAX_SODT_LEN + 1);
+                        strcpy(sv.LOP, maLop); // Gán lớp cho sinh viên
+                        ThemSinhVien(ds.lop[index].dssv, sv);
+                    }
+                }
+                break;
+            }
+            case 5: {
+                char maLop[16];
+                std::cout << "Nhap ma lop de in danh sach sinh vien: ";
+                std::cin.getline(maLop, 16);
+                int index = TimLopSV(ds, maLop);
+                if (index == -1) {
+                    std::cerr << "Khong tim thay lop '" << maLop << "'.\n";
+                } else {
+                    InDanhSachSinhVienSapXepTheoTen(ds.lop[index].dssv);
+                }
+                break;
+            }
+            case 6:
+                break;
+            default:
+                std::cerr << "Lua chon khong hop le!\n";
+        }
+    } while (luaChon != 6);
+}
+
 void hienThiMenu() {
     std::cout << "\n=== CHUONG TRINH QUAN LY SINH VIEN ===\n";
     std::cout << "1. Quan ly mon hoc\n";
-    std::cout << "2. Quan ly sinh vien\n";
-    std::cout << "3. Quan ly lop tin chi\n";
-    std::cout << "4. Thoat\n";
-    std::cout << "Nhap lua chon (1-4): ";
+    std::cout << "2. Quan ly lop sinh vien\n"; // <-- Thêm
+    std::cout << "3. Quan ly sinh vien\n";
+    std::cout << "4. Quan ly lop tin chi\n";
+    std::cout << "5. Thoat\n";
+    std::cout << "Nhap lua chon (1-5): ";
 }
+
 
 // Hàm hiển thị menu môn học
 void hienThiMenuMonHoc() {
@@ -401,11 +496,13 @@ void quanLyLopTinChi(DanhSachLopTinChi &dsLTC, const DanhSachMonHoc &dsMH, const
 }
 
 int main() {
-    DanhSachMonHoc dsMH = NULL; // Khởi tạo cây AVL rỗng
-    DanhSachSinhVien dsSV;
-    DanhSachLopTinChi dsLTC;
+    DanhSachMonHoc dsMH = NULL;
+	DanhSachLopSV dsLopSV;
+	DanhSachSinhVien dsSV;
+	DanhSachLopTinChi dsLTC;
 
     // Khởi tạo danh sách sinh viên và lớp tín chỉ
+    KhoiTaoDSLopSV(dsLopSV);
     KhoiTaoDSSinhVien(dsSV);
     KhoiTaoDSLTC(dsLTC);
 
@@ -416,21 +513,24 @@ int main() {
         clearInputBuffer();
 
         switch (luaChon) {
-            case 1: // Quản lý môn học
-                quanLyMonHoc(dsMH);
-                break;
-            case 2: // Quản lý sinh viên
-                quanLySinhVien(dsSV);
-                break;
-            case 3: // Quản lý lớp tín chỉ
-                quanLyLopTinChi(dsLTC, dsMH, dsSV);
-                break;
-            case 4: // Thoát
-                std::cout << "Cam on ban da su dung chuong trinh!\n";
-                break;
-            default:
-                std::cerr << "Loi: Lua chon khong hop le!\n";
-        }
+		    case 1:
+		        quanLyMonHoc(dsMH);
+		        break;
+		    case 2:
+		        quanLyLopSV(dsLopSV); // <-- Thêm
+		        break;
+		    case 3:
+		        quanLySinhVien(dsSV);
+		        break;
+		    case 4:
+		        quanLyLopTinChi(dsLTC, dsMH, dsSV);
+		        break;
+		    case 5:
+		        std::cout << "Cam on ban da su dung chuong trinh!\n";
+		        break;
+		    default:
+		        std::cerr << "Loi: Lua chon khong hop le!\n";
+		}
     } while (luaChon != 4);
 
     // Giải phóng bộ nhớ
