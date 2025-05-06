@@ -152,6 +152,34 @@ void SaveDanhSachMonHoc(AVLTree ds, const char* filename) {
     file.close();
 }
 
+void LoadDanhSachMonHoc(AVLTree &ds, const char* filename) {
+    std::ifstream file(filename);
+    if (!file.is_open()) {
+        std::cerr << "Khong the mo file de doc MonHoc!\n";
+        return;
+    }
+
+    ds = NULL; // Reset cây
+
+    std::string line;
+    while (std::getline(file, line)) {
+        if (line == "#END") break;
+
+        std::stringstream ss(line);
+        std::string token;
+        MonHoc mh;
+
+        std::getline(ss, token, '|'); strcpy(mh.MAMH, token.c_str());
+        std::getline(ss, token, '|'); strcpy(mh.TENMH, token.c_str());
+        std::getline(ss, token, '|'); mh.STCLT = stoi(token);
+        std::getline(ss, token, '|'); mh.STCTH = stoi(token);
+
+        InsertAVL(ds, mh); // Hàm chèn AVL bạn đã viết trước đó
+    }
+
+    file.close();
+}
+
 // Hàm giải phóng bộ nhớ
 void GiaiPhongDSMonHoc(DanhSachMonHoc &ds) {
     FreeAVL(ds);

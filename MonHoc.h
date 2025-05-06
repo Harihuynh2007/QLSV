@@ -29,5 +29,7 @@ void ThuThapMonHoc(DanhSachMonHoc ds, MonHoc* &arr, int &size, int &capacity);
 void SapXepTheoTenMonHoc(MonHoc* arr, int size);
 
 void SaveDanhSachMonHoc(AVLTree ds, const char* filename);
+void LoadDanhSachMonHoc(AVLTree &ds, const char* filename);
+
 
 #endif // MONHOC_H
