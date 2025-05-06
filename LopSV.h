@@ -24,7 +24,8 @@ bool XoaLopSV(DanhSachLopSV &ds, const char* maLop);
 bool HieuChinhLopSV(DanhSachLopSV &ds, const char* maLop, LopSV lopMoi);
 void ExtendLopArray(DanhSachLopSV &ds);
 
-void SaveDanhSachLopSV(const DanhSachLopSV &ds, const char* filename);
+// LopSV.h
+void SaveDanhSachLopSV(DanhSachLopSV &ds, const char* filename);
 void LoadDanhSachLopSV(DanhSachLopSV &ds, const char* filename);
 
 

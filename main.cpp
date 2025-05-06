@@ -505,7 +505,11 @@ int main() {
     KhoiTaoDSLopSV(dsLopSV);
     KhoiTaoDSSinhVien(dsSV);
     KhoiTaoDSLTC(dsLTC);
-
+	
+	LoadDanhSachMonHoc(dsMH, "MonHoc.txt");
+    LoadDanhSachLopSV(dsLopSV, "LopSV.txt");
+    LoadDanhSachLopTinChi(dsLTC, "LopTinChi.txt");
+    
     int luaChon;
     do {
         hienThiMenu();
@@ -532,7 +536,12 @@ int main() {
 		        std::cerr << "Loi: Lua chon khong hop le!\n";
 		}
     } while (luaChon != 4);
-
+	
+	// === Save du lieu truoc khi thoat ===
+    SaveDanhSachMonHoc(dsMH, "MonHoc.txt");
+    SaveDanhSachLopSV(dsLopSV, "LopSV.txt");
+    SaveDanhSachLopTinChi(dsLTC, "LopTinChi.txt");
+    
     // Giải phóng bộ nhớ
     GiaiPhongDSMonHoc(dsMH);
     GiaiPhongDSSinhVien(dsSV);

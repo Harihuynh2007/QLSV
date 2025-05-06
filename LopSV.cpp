@@ -105,7 +105,7 @@ void SaveDanhSachSinhVien(DanhSachSinhVien first, std::ofstream &file) {
     }
 }
 
-void SaveDanhSachLopSV(DanhSachLopSV &ds, const char* filename) {
+void SaveDanhSachLopSV(const DanhSachLopSV &ds, const char* filename) {
     std::ofstream file(filename);
     if (!file.is_open()) {
         std::cerr << "Khong the mo file de ghi LopSV!\n";
