@@ -2,7 +2,8 @@
 #include <iostream>
 #include <cstring>
 #include <new>
-
+#include <fstream>
+#include <sstream>
  
 void KhoiTaoDSLopSV(DanhSachLopSV &ds) {
     ds.lop = NULL;
@@ -127,3 +128,49 @@ void SaveDanhSachLopSV(DanhSachLopSV &ds, const char* filename) {
     file << "#END" << std::endl;
     file.close();
 }
+void LoadDanhSachLopSV(DanhSachLopSV &ds, const char* filename) {
+    std::ifstream file(filename);
+    if (!file.is_open()) {
+        std::cerr << "Khong the mo file de doc LopSV!\n";
+        return;
+    }
+
+    KhoiTaoDSLopSV(ds);
+
+    std::string line;
+    int currentIndex = -1;
+
+    while (std::getline(file, line)) {
+        if (line == "#END") break;
+        if (line == "#ENDCLASS") {
+            currentIndex = -1;
+            continue;
+        }
+
+        std::stringstream ss(line);
+        std::string token;
+
+        if (currentIndex == -1) {
+            // Dòng MALOP|TENLOP
+            LopSV lop;
+            std::getline(ss, token, '|'); strcpy(lop.MALOP, token.c_str());
+            std::getline(ss, token, '|'); strcpy(lop.TENLOP, token.c_str());
+            lop.dssv = NULL;
+            ThemLopSV(ds, lop);
+            currentIndex = ds.n - 1;
+        } else {
+            // Dòng SinhVien
+            SinhVien sv;
+            std::getline(ss, token, '|'); strcpy(sv.MASV, token.c_str());
+            std::getline(ss, token, '|'); strcpy(sv.HO, token.c_str());
+            std::getline(ss, token, '|'); strcpy(sv.TEN, token.c_str());
+            std::getline(ss, token, '|'); strcpy(sv.PHAI, token.c_str());
+            std::getline(ss, token, '|'); strcpy(sv.SODT, token.c_str());
+            std::getline(ss, token, '|'); strcpy(sv.LOP, token.c_str());
+            ThemSinhVien(ds.lop[currentIndex].dssv, sv);
+        }
+    }
+
+    file.close();
+}
+

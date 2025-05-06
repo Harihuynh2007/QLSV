@@ -29,9 +29,9 @@ CursorRow=6
 TopLine=1
 LeftChar=1
 [Editor_6]
-CursorCol=16
-CursorRow=525
-TopLine=486
+CursorCol=19
+CursorRow=3
+TopLine=1
 LeftChar=1
 [Editors]
 Order=0,3,4,6,5,10,8,7,1,2

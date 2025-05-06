@@ -72,6 +72,6 @@ void InBangDiemLop(const DanhSachLopTinChi &dsLTC, const DanhSachSinhVien &dsSV,
 
 
 void SaveDanhSachDangKy(DanhSachDangKy first, std::ofstream &file);
-
+void LoadDanhSachLopTinChi(DanhSachLopTinChi &ds, const char* filename);
 #endif // LOPTINCHI_H
 // --- END OF FILE LopTinChi.h ---
