@@ -2,6 +2,7 @@
 #ifndef LOPTINCHI_H
 #define LOPTINCHI_H
 #include "SinhVien.h"
+#include <fstream>
 
 // --- Khai báo struct DangKy và NodeDK ---
 struct DangKy {
@@ -68,6 +69,9 @@ bool NhapDiemSinhVienLopTC(DanhSachLopTinChi &dsLTC, int maLTC, const char* maSV
 void InDSSVDaDangKyCuaLop(const DanhSachLopTinChi &dsLTC, const DanhSachSinhVien &dsSV, int maLTC);
 void InDSSVSapXepCuaLop(const DanhSachLopTinChi &dsLTC, const DanhSachSinhVien &dsSV, int maLTC);
 void InBangDiemLop(const DanhSachLopTinChi &dsLTC, const DanhSachSinhVien &dsSV, int maLTC);
+
+
+void SaveDanhSachDangKy(DanhSachDangKy first, std::ofstream &file);
 
 #endif // LOPTINCHI_H
 // --- END OF FILE LopTinChi.h ---

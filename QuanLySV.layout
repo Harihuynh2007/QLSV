@@ -25,8 +25,8 @@ TopLine=1
 LeftChar=1
 [Editor_5]
 CursorCol=1
-CursorRow=63
-TopLine=20
+CursorRow=6
+TopLine=1
 LeftChar=1
 [Editor_6]
 CursorCol=16
@@ -52,8 +52,8 @@ CursorRow=28
 TopLine=1
 LeftChar=1
 [Editor_10]
-CursorCol=28
-CursorRow=114
+CursorCol=1
+CursorRow=130
 TopLine=101
 LeftChar=1
 [Editor_11]

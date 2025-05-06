@@ -1,5 +1,6 @@
 // --- START OF FILE LopTinChi.cpp ---
-
+#include <fstream>
+#include <sstream>
 #include "LopTinChi.h"
 #include "SinhVien.h"
 #include <iostream>
@@ -602,5 +603,114 @@ void InBangDiemLop(const DanhSachLopTinChi &dsLTC, const DanhSachSinhVien &dsSV,
 
     delete[] diemArr;
 }
+
+#include <fstream>
+
+void SaveDanhSachDangKy(DanhSachDangKy first, std::ofstream &file) {
+    NodeDK* current = first;
+    while (current != NULL) {
+        file << current->data.MASV << "|"
+             << current->data.DIEM << std::endl;
+        current = current->next;
+    }
+}
+
+void SaveDanhSachLopTinChi(DanhSachLopTinChi &ds, const char* filename) {
+    std::ofstream file(filename);
+    if (!file.is_open()) {
+        std::cerr << "Khong the mo file de ghi LopTinChi!\n";
+        return;
+    }
+
+    for (int i = 0; i < MAX_LTC; i++) {
+	    if (ds.nodes[i] != NULL) {
+	        LopTinChi* ltc = ds.nodes[i];
+	        file << ltc->MALOPTC << "|"
+	             << ltc->MAMH << "|"
+	             << ltc->nienkhoa << "|"
+	             << ltc->hocky << "|"
+	             << ltc->nhom << "|"
+	             << ltc->sv_min << "|"
+	             << ltc->sv_max << "|"
+	             << ltc->huyLop << "|"
+	             << ltc->soSVDK << std::endl;
+	
+	        SaveDanhSachDangKy(ltc->dssvdk, file);
+	        file << "#ENDCLASS" << std::endl;
+	    }
+	}
+	file << "#END" << std::endl;
+}
+
+
+void LoadDanhSachLopTinChi(DanhSachLopTinChi &ds, const char* filename) {
+    std::ifstream file(filename);
+    if (!file.is_open()) {
+        std::cerr << "Khong the mo file de doc LopTinChi!\n";
+        return;
+    }
+
+    KhoiTaoDSLTC(ds);
+
+    std::string line;
+    LopTinChi* currentLTC = NULL;
+
+    while (std::getline(file, line)) {
+        if (line == "#END") break;
+        if (line == "#ENDCLASS") {
+            currentLTC = NULL;
+            continue;
+        }
+
+        std::stringstream ss(line);
+        std::string token;
+
+        if (currentLTC == NULL) {
+            // Đây là dòng thông tin LopTinChi
+            currentLTC = new LopTinChi;
+            std::getline(ss, token, '|'); currentLTC->MALOPTC = stoi(token);
+            std::getline(ss, token, '|'); strcpy(currentLTC->MAMH, token.c_str());
+            std::getline(ss, token, '|'); currentLTC->nienkhoa = stoi(token);
+            std::getline(ss, token, '|'); currentLTC->hocky = stoi(token);
+            std::getline(ss, token, '|'); currentLTC->nhom = stoi(token);
+            std::getline(ss, token, '|'); currentLTC->sv_min = stoi(token);
+            std::getline(ss, token, '|'); currentLTC->sv_max = stoi(token);
+            std::getline(ss, token, '|'); currentLTC->huyLop = (token == "1");
+            std::getline(ss, token, '|'); currentLTC->soSVDK = stoi(token);
+
+            KhoiTaoDSDangKy(currentLTC->dssvdk);
+
+            // Tìm vị trí trống trong ds.nodes[]
+            int emptyIndex = -1;
+            for (int i = 0; i < MAX_LTC; i++) {
+                if (ds.nodes[i] == NULL) {
+                    emptyIndex = i;
+                    break;
+                }
+            }
+
+            if (emptyIndex != -1) {
+                ds.nodes[emptyIndex] = currentLTC;
+                ds.soLuong++;
+            } else {
+                std::cerr << "Danh sach Lop Tin Chi day, khong them duoc!\n";
+                delete currentLTC;
+                currentLTC = NULL;
+            }
+        } else {
+            // Đây là dòng thông tin sinh viên đăng ký
+            DangKy dk;
+            std::getline(ss, token, '|'); strcpy(dk.MASV, token.c_str());
+            std::getline(ss, token, '|'); dk.DIEM = stof(token);
+            dk.daCoDiem = (dk.DIEM >= 0.0f);
+
+            ThemDangKyVaoDSLK(currentLTC->dssvdk, dk);
+        }
+    }
+
+    file.close();
+}
+
+
 
 // --- END OF FILE LopTinChi.cpp ---
