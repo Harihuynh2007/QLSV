@@ -18,13 +18,13 @@ struct SinhVien {
 	char LOP[16];
 };
 
-// Node trong danh sách liên kết sinh viên
+
 struct NodeSV {
     SinhVien data; // Dữ liệu sinh viên
     NodeSV* next;  // Con trỏ tới node kế tiếp
 };
 
-// Kiểu dữ liệu cho danh sách (con trỏ đầu của danh sách)
+// kieu du lieu cho danh sach
 typedef NodeSV* DanhSachSinhVien;
 
 // Các hàm quản lý cơ bản

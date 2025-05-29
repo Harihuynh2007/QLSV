@@ -3,6 +3,9 @@
 #include <sstream>
 #include "LopTinChi.h"
 #include "SinhVien.h"
+#include "MonHoc.h"
+#include "AVLTree.h"
+
 #include <iostream>
 #include <cstring>
 #include <iomanip>
@@ -709,6 +712,86 @@ void LoadDanhSachLopTinChi(DanhSachLopTinChi &ds, const char* filename) {
     }
 
     file.close();
+}
+void DangKyLopTinChiTheoHocKy(DanhSachLopTinChi &dsLTC, const DanhSachSinhVien &dsSV, const DanhSachMonHoc &dsMH) {
+    char maSV[MAX_MASV_LEN + 1];
+    std::cout << "Nhap ma sinh vien: ";
+    std::cin.getline(maSV, MAX_MASV_LEN + 1);
+
+    NodeSV* svNode = TimSinhVienTheoMa(dsSV, maSV);
+    if (!svNode) {
+        std::cerr << "Khong tim thay sinh vien co ma '" << maSV << "'\n";
+        return;
+    }
+
+    std::cout << "Sinh vien: " << svNode->data.HO << " " << svNode->data.TEN << " - Lop: " << svNode->data.LOP << "\n";
+
+    int nienKhoa, hocKy;
+    std::cout << "Nhap nien khoa: ";
+    std::cin >> nienKhoa;
+    std::cout << "Nhap hoc ky (1-3): ";
+    std::cin >> hocKy;
+    std::cin.ignore(10000, '\n'); // clear buffer
+
+    // Khởi tạo mảng lưu các lớp hợp lệ
+    const int MAX_LOP_HOPLE = 1000;
+    int lopHopLe[MAX_LOP_HOPLE];
+    int soLop = 0;
+
+    std::cout << "\n--- DANH SACH LOP TIN CHI DA MO ---\n";
+    std::cout << std::left << std::setw(10) << "MaLTC"
+              << std::setw(12) << "MaMH"
+              << std::setw(30) << "TenMH"
+              << std::setw(6)  << "Nhom"
+              << std::setw(10) << "Da DK"
+              << std::setw(10) << "Con lai" << "\n";
+
+    for (int i = 0; i < MAX_LTC; i++) {
+        LopTinChi* ltc = dsLTC.nodes[i];
+        if (ltc && !ltc->huyLop && ltc->nienkhoa == nienKhoa && ltc->hocky == hocKy && ltc->soSVDK < ltc->sv_max) {
+            NodeAVL* nodeMH = TimMonHocTheoMa(dsMH, ltc->MAMH);
+            const char* tenMH = nodeMH ? nodeMH->data.TENMH : "(Khong tim thay)";
+            std::cout << std::left << std::setw(10) << ltc->MALOPTC
+                      << std::setw(12) << ltc->MAMH
+                      << std::setw(30) << tenMH
+                      << std::setw(6)  << ltc->nhom
+                      << std::setw(10) << ltc->soSVDK
+                      << std::setw(10) << (ltc->sv_max - ltc->soSVDK) << "\n";
+
+            if (soLop < MAX_LOP_HOPLE) {
+                lopHopLe[soLop++] = ltc->MALOPTC;
+            }
+        }
+    }
+
+    if (soLop == 0) {
+        std::cout << "Khong co lop tin chi nao phu hop de dang ky.\n";
+        return;
+    }
+
+    int maLTCChon;
+    std::cout << "Nhap ma lop tin chi muon dang ky: ";
+    std::cin >> maLTCChon;
+    std::cin.ignore(10000, '\n');
+
+    bool hopLe = false;
+    for (int i = 0; i < soLop; i++) {
+        if (lopHopLe[i] == maLTCChon) {
+            hopLe = true;
+            break;
+        }
+    }
+
+    if (!hopLe) {
+        std::cerr << "Ma lop tin chi khong nam trong danh sach o tren!\n";
+        return;
+    }
+
+    if (ThemSVVaoLopTC(dsLTC, dsSV, maLTCChon, maSV)) {
+        std::cout << "Da dang ky thanh cong lop tin chi " << maLTCChon << "\n";
+    } else {
+        std::cerr << "Dang ky that bai!\n";
+    }
 }
 
 

@@ -4,11 +4,13 @@
 #include "SinhVien.h"
 #include <fstream>
 
-// --- Khai báo struct DangKy và NodeDK ---
+struct NodeAVL;
+typedef NodeAVL* DanhSachMonHoc;
+
 struct DangKy {
-    char MASV[MAX_MASV_LEN + 1]; // Sử dụng hằng số từ SinhVien.h nếu có
+    char MASV[MAX_MASV_LEN + 1]; 
     float DIEM;
-    bool daCoDiem; // Cờ báo trạng thái nhập điểm
+    bool daCoDiem; // bao trang thai da co diem
 };
 
 struct NodeDK {
@@ -32,14 +34,14 @@ struct LopTinChi {
     int soSVDK;      // Số lượng SV đã đăng ký hiện tại
 };
 
-// --- Khai báo cấu trúc quản lý danh sách lớp tín chỉ ---
-const int MAX_LTC = 10000; // Số lượng lớp tín chỉ tối đa
+
+const int MAX_LTC = 10000; 
 struct DanhSachLopTinChi {
-    LopTinChi* nodes[MAX_LTC]; // Mảng con trỏ tới các lớp tín chỉ
-    int soLuong;               // Số lượng lớp tín chỉ hiện có
+    LopTinChi* nodes[MAX_LTC]; // Mang con tro toi lop tin chi
+    int soLuong;               // So luong lop tin chi hien co
 };
 
-// --- Khai báo các hàm xử lý DanhSachDangKy ---
+
 void KhoiTaoDSDangKy(DanhSachDangKy &firstDK);
 void GiaiPhongDSDangKy(DanhSachDangKy &firstDK);
 bool ThemDangKyVaoDSLK(DanhSachDangKy &firstDK, const DangKy &dk);
@@ -47,7 +49,7 @@ NodeDK* TimDangKyTheoMASV(DanhSachDangKy firstDK, const char* maSV);
 bool XoaDangKyTheoMASV(DanhSachDangKy &firstDK, const char* maSV);
 int DemSoLuongDangKy(DanhSachDangKy firstDK);
 
-// --- Khai báo các hàm xử lý DanhSachLopTinChi ---
+
 void KhoiTaoDSLTC(DanhSachLopTinChi &ds);
 void GiaiPhongDSLTC(DanhSachLopTinChi &ds);
 int TimLopTinChiTheoMa(const DanhSachLopTinChi &ds, int maLTC);
@@ -59,10 +61,8 @@ bool HuyLopTinChi(DanhSachLopTinChi &ds, int maLTC);
 int TimMaLopTCMax(const DanhSachLopTinChi &ds);
 void SapXepDSLTC(DanhSachLopTinChi &ds, bool tangDan = true);
 
-// Trong LopTinChi.h, thêm vào phần khai báo hàm
 void HuyLopTuDongTheoNienKhoaHocKy(DanhSachLopTinChi &ds, int nienKhoa, int hocKy);
 
-// --- Khai báo các hàm thao tác nghiệp vụ ---
 bool ThemSVVaoLopTC(DanhSachLopTinChi &dsLTC, const DanhSachSinhVien &dsSV, int maLTC, const char* maSV);
 bool XoaSVKhoiLopTC(DanhSachLopTinChi &dsLTC, int maLTC, const char* maSV);
 bool NhapDiemSinhVienLopTC(DanhSachLopTinChi &dsLTC, int maLTC, const char* maSV, float diem);
@@ -73,5 +73,8 @@ void InBangDiemLop(const DanhSachLopTinChi &dsLTC, const DanhSachSinhVien &dsSV,
 
 void SaveDanhSachLopTinChi(DanhSachLopTinChi &ds, const char* filename);
 void LoadDanhSachLopTinChi(DanhSachLopTinChi &ds, const char* filename);
-#endif // LOPTINCHI_H
+
+void DangKyLopTinChiTheoHocKy(DanhSachLopTinChi &dsLTC, const DanhSachSinhVien &dsSV, const DanhSachMonHoc &dsMH);
+
+#endif 
 // --- END OF FILE LopTinChi.h ---

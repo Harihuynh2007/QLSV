@@ -2,6 +2,7 @@
 #define LOPSV_H
 
 #include "SinhVien.h"
+#include "MonHoc.h"
 
 struct LopSV {
     char MALOP[16];
@@ -25,7 +26,7 @@ bool HieuChinhLopSV(DanhSachLopSV &ds, const char* maLop, LopSV lopMoi);
 void ExtendLopArray(DanhSachLopSV &ds);
 
 // LopSV.h
-void SaveDanhSachLopSV(DanhSachLopSV &ds, const char* filename);
+void SaveDanhSachLopSV(const DanhSachLopSV &ds, const char* filename);
 void LoadDanhSachLopSV(DanhSachLopSV &ds, const char* filename);
 
 

@@ -79,7 +79,7 @@ bool ThemSinhVien(DanhSachSinhVien &first, SinhVien sv) {
     return true;
 }
 
-// Xóa sinh viên theo mã
+
 bool XoaSinhVienTheoMa(DanhSachSinhVien &first, const char* maSV) {
     if (IsEmpty(first) || maSV == NULL) {
         return false;
@@ -93,7 +93,6 @@ bool XoaSinhVienTheoMa(DanhSachSinhVien &first, const char* maSV) {
         return true;
     }
     
-    // Trường hợp xóa node ở giữa hoặc cuối
     NodeSV* current = first;
     while (current->next != NULL) {
         if (strcmp(current->next->data.MASV, maSV) == 0) {
@@ -109,7 +108,7 @@ bool XoaSinhVienTheoMa(DanhSachSinhVien &first, const char* maSV) {
     return false;
 }
 
-// Hiệu chỉnh thông tin sinh viên theo mã
+
 bool HieuChinhSinhVien(DanhSachSinhVien first, const char* maSV, const SinhVien svMoi) {
     NodeSV* node = TimSinhVienTheoMa(first, maSV);
     if (node == NULL) {
@@ -134,7 +133,7 @@ bool HieuChinhSinhVien(DanhSachSinhVien first, const char* maSV, const SinhVien 
     return true;
 }
 
-// In danh sách sinh viên theo định dạng bảng
+
 void InDanhSachSinhVien(const DanhSachSinhVien first) {
     if (IsEmpty(first)) {
         std::cout << "Danh sach sinh vien rong.\n";
@@ -143,7 +142,6 @@ void InDanhSachSinhVien(const DanhSachSinhVien first) {
     
     std::cout << "\n--- Danh Sach Sinh Vien ---\n";
     
-    // Định dạng header của bảng
     std::cout << std::left 
               << std::setw(4) << "STT"
               << " | " << std::setw(15) << "MA SV"
@@ -161,7 +159,6 @@ void InDanhSachSinhVien(const DanhSachSinhVien first) {
               << std::setw(15) << "-"
               << std::setfill(' ') << std::endl;
     
-    // In từng dòng dữ liệu
     int stt = 1;
     NodeSV* current = first;
     while (current != NULL) {
@@ -196,7 +193,7 @@ void InDanhSachSinhVienSapXepTheoTen(const DanhSachSinhVien first) {
         return;
     }
 
-    // Đếm số sinh viên
+    // Dem so sv
     int count = 0;
     NodeSV* p = first;
     while (p != NULL) {
@@ -204,7 +201,7 @@ void InDanhSachSinhVienSapXepTheoTen(const DanhSachSinhVien first) {
         p = p->next;
     }
 
-    // Tạo mảng con trỏ để lưu các sinh viên
+    // Tao mang con tro de luu sinh vien
     NodeSV** svArr = new NodeSV*[count];
     p = first;
     for (int i = 0; i < count; i++) {
@@ -212,7 +209,7 @@ void InDanhSachSinhVienSapXepTheoTen(const DanhSachSinhVien first) {
         p = p->next;
     }
 
-    // Sắp xếp nổi bọt theo TEN + HO
+    // sap xep theo ho va ten
     for (int i = 0; i < count - 1; i++) {
         for (int j = 0; j < count - i - 1; j++) {
             int cmp = strcmp(svArr[j]->data.TEN, svArr[j + 1]->data.TEN);
@@ -224,7 +221,6 @@ void InDanhSachSinhVienSapXepTheoTen(const DanhSachSinhVien first) {
         }
     }
 
-    // In danh sách đã sắp xếp
     std::cout << "\n--- Danh Sach Sinh Vien (Sap xep theo ten + ho) ---\n";
     std::cout << std::left 
               << std::setw(4) << "STT"
@@ -253,6 +249,6 @@ void InDanhSachSinhVienSapXepTheoTen(const DanhSachSinhVien first) {
                   << " | " << svArr[i]->data.SODT << std::endl;
     }
 
-    // Giải phóng mảng con trỏ
+    // Giai phong mang con tro
     delete[] svArr;
 }

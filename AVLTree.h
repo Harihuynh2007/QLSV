@@ -4,9 +4,8 @@
 #include <stdlib.h>
 #include <string.h>
 #include <stdio.h>
-#include <functional> // Thêm để sử dụng std::function
+#include <functional> 
 
-// Bao gồm MonHoc.h để có định nghĩa đầy đủ của struct MonHoc
 #include "MonHoc.h"
 
 struct NodeAVL {
