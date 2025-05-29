@@ -85,7 +85,6 @@ bool XoaSinhVienTheoMa(DanhSachSinhVien &first, const char* maSV) {
         return false;
     }
     
-    // Trường hợp xóa node đầu tiên
     if (strcmp(first->data.MASV, maSV) == 0) {
         NodeSV* temp = first;
         first = first->next;

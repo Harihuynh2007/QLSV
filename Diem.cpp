@@ -6,17 +6,15 @@
 #include <cstring>
 #include <iomanip>
 #include <new>
-#include <vector> // Thêm để sử dụng std::vector
-#include <string> // Thêm để sử dụng std::string
+#include <vector> 
+#include <string> 
 
-// Hàm kiểm tra chuỗi hợp lệ
 bool KiemTraChuoiHopLe(const char* str, int maxLen) {
     if (str == NULL || str[0] == '\0') return false;
     if (strlen(str) > maxLen) return false;
     return true;
 }
 
-// Hàm nhập điểm cho sinh viên trong lớp tín chỉ
 bool NhapDiemSinhVienLopTC(DanhSachLopTinChi &dsLTC, int maLTC, const char* maSV, float diem) {
     if (diem < 0.0f || diem > 10.0f) {
         std::cerr << "Loi: Diem phai trong khoang 0.0 den 10.0.\n";
