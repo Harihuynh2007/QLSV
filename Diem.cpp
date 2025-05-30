@@ -34,6 +34,7 @@ bool NhapDiemSinhVienLopTC(DanhSachLopTinChi &dsLTC, int maLTC, const char* maSV
         std::cerr << "Loi: Lop tin chi " << maLTC << " da bi huy.\n";
         return false;
     }
+    
     NodeDK* nodeDK = TimDangKyTheoMASV(lop->dssvdk, maSV);
     if (nodeDK == NULL) {
         std::cerr << "Loi: Sinh vien " << maSV << " chua dang ky lop tin chi " << maLTC << ".\n";
@@ -44,7 +45,7 @@ bool NhapDiemSinhVienLopTC(DanhSachLopTinChi &dsLTC, int maLTC, const char* maSV
     return true;
 }
 
-// Hàm nhập điểm theo bảng
+// Ham nhap diem theo bang
 void NhapDiemTheoBang(DanhSachLopTinChi &dsLTC, const DanhSachSinhVien &dsSV, int maLTC) {
     int index = TimLopTinChiTheoMa(dsLTC, maLTC);
     if (index == -1) {
@@ -91,7 +92,6 @@ void NhapDiemTheoBang(DanhSachLopTinChi &dsLTC, const DanhSachSinhVien &dsSV, in
     }
     count = idx;
 
-    // Sắp xếp theo MASV
     for (int i = 0; i < count - 1; i++) {
         for (int j = 0; j < count - i - 1; j++) {
             if (strcmp(diemArr[j].MASV, diemArr[j + 1].MASV) > 0) {
@@ -102,7 +102,6 @@ void NhapDiemTheoBang(DanhSachLopTinChi &dsLTC, const DanhSachSinhVien &dsSV, in
         }
     }
 
-    // In bảng để nhập điểm
     std::cout << "\n                   NHAP DIEM LOP TIN CHI " << maLTC << "\n";
     std::cout << "Mon hoc: " << lop->MAMH << " - Nien khoa: " << lop->nienkhoa
               << " - Hoc ky: " << lop->hocky << " - Nhom: " << lop->nhom << "\n";
@@ -127,7 +126,6 @@ void NhapDiemTheoBang(DanhSachLopTinChi &dsLTC, const DanhSachSinhVien &dsSV, in
     }
     std::cout << "+-----+------------+------------------------------------+-------+\n";
 
-    // Nhập điểm
     std::cout << "Nhap diem cho tung sinh vien (nhap -1 de bo qua, 0-10 de cap nhat):\n";
     for (int i = 0; i < count; i++) {
         float diem;
@@ -144,21 +142,18 @@ void NhapDiemTheoBang(DanhSachLopTinChi &dsLTC, const DanhSachSinhVien &dsSV, in
     std::cout << "Da nhap diem xong.\n";
 }
 
-// Hàm in bảng điểm môn học
 void InBangDiemMonHoc(const DanhSachLopTinChi &dsLTC, const DanhSachSinhVien &dsSV, const DanhSachMonHoc &dsMH, const char* maMH) {
     if (!KiemTraChuoiHopLe(maMH, 10)) {
         std::cout << "Loi: Ma mon hoc khong hop le!\n";
         return;
     }
 
-    // Tìm tên môn học
     char tenMH[51] = "Unknown";
-    NodeAVL* pMH = TimMonHocTheoMa(dsMH, maMH); // Trả về NodeAVL*
+    NodeAVL* pMH = TimMonHocTheoMa(dsMH, maMH); 
     if (pMH != NULL) {
         strcpy(tenMH, pMH->data.TENMH);
     }
 
-    // Đếm số lớp tín chỉ của môn học
     int countLTC = 0;
     for (int i = 0; i < MAX_LTC; i++) {
         if (dsLTC.nodes[i] != NULL && strcmp(dsLTC.nodes[i]->MAMH, maMH) == 0 && !dsLTC.nodes[i]->huyLop) {
@@ -222,7 +217,7 @@ void InBangDiemMonHoc(const DanhSachLopTinChi &dsLTC, const DanhSachSinhVien &ds
     }
     totalSV = idx;
 
-    // Sắp xếp theo MASV
+    // sap xep theo ma sinh vien
     for (int i = 0; i < totalSV - 1; i++) {
         for (int j = 0; j < totalSV - i - 1; j++) {
             if (strcmp(diemArr[j].MASV, diemArr[j + 1].MASV) > 0) {
@@ -233,7 +228,6 @@ void InBangDiemMonHoc(const DanhSachLopTinChi &dsLTC, const DanhSachSinhVien &ds
         }
     }
 
-    // In bảng điểm
     std::cout << "\n                   BANG DIEM MON HOC " << tenMH << " (" << maMH << ")\n";
     std::cout << "+-----+------------+------------------------------------+-------+-----------------+\n";
     std::cout << "| STT |    MASV    | Ho va Ten                          | Diem  | Ma Lop Tin Chi  |\n";
@@ -261,14 +255,12 @@ void InBangDiemMonHoc(const DanhSachLopTinChi &dsLTC, const DanhSachSinhVien &ds
     delete[] diemArr;
 }
 
-// Hàm in điểm trung bình kết thúc khóa học
 void InBangDiemTrungBinhKhoa(const DanhSachLopTinChi &dsLTC, const DanhSachSinhVien &dsSV, const DanhSachMonHoc &dsMH, const char* maLop) {
     if (!KiemTraChuoiHopLe(maLop, 15)) {
         std::cout << "Loi: Ma lop khong hop le!\n";
         return;
     }
 
-    // Thu thập danh sách sinh viên thuộc lớp
     struct DiemTB {
         char MASV[16];
         char HO[31];
@@ -309,7 +301,6 @@ void InBangDiemTrungBinhKhoa(const DanhSachLopTinChi &dsLTC, const DanhSachSinhV
     }
     totalSV = idx;
 
-    // Tính điểm trung bình
     for (int i = 0; i < totalSV; i++) {
         float tongDiem = 0.0f;
         int tongTinChi = 0;
@@ -333,7 +324,7 @@ void InBangDiemTrungBinhKhoa(const DanhSachLopTinChi &dsLTC, const DanhSachSinhV
         diemArr[i].tongTinChi = tongTinChi;
     }
 
-    // Sắp xếp theo MASV
+    // Sap xep theo maSV
     for (int i = 0; i < totalSV - 1; i++) {
         for (int j = 0; j < totalSV - i - 1; j++) {
             if (strcmp(diemArr[j].MASV, diemArr[j + 1].MASV) > 0) {
@@ -372,14 +363,14 @@ void InBangDiemTrungBinhKhoa(const DanhSachLopTinChi &dsLTC, const DanhSachSinhV
     delete[] diemArr;
 }
 
-// Hàm in bảng điểm tổng kết
+
 void InBangDiemTongKet(const DanhSachLopTinChi &dsLTC, const DanhSachSinhVien &dsSV, const DanhSachMonHoc &dsMH, const char* maLop) {
     if (!KiemTraChuoiHopLe(maLop, 15)) {
         std::cout << "Loi: Ma lop khong hop le!\n";
         return;
     }
 
-    // Thu thập danh sách sinh viên và môn học
+    // thu thap danh sach sinh vien va mon hoc
     int totalSV = 0;
     NodeSV* pSV = dsSV;
     while (pSV != NULL) {
@@ -395,7 +386,7 @@ void InBangDiemTongKet(const DanhSachLopTinChi &dsLTC, const DanhSachSinhVien &d
         char MASV[16];
         char HO[31];
         char TEN[11];
-        float diem[100]; // Giả sử tối đa 100 môn học
+        float diem[100]; 
     };
 
     DiemTK* diemArr = new (std::nothrow) DiemTK[totalSV];
@@ -404,14 +395,14 @@ void InBangDiemTongKet(const DanhSachLopTinChi &dsLTC, const DanhSachSinhVien &d
         return;
     }
 
-    // Lấy danh sách môn học bằng cách duyệt cây AVL
+    // Lay danh sach mon hoc bang cach duyet cay AVL
     std::vector<std::string> maMHList;
     InorderTraversal(dsMH, [&maMHList](MonHoc mh) {
         maMHList.push_back(std::string(mh.MAMH));
     });
     int numMH = maMHList.size();
 
-    // Khởi tạo mảng điểm
+    // khoi tao mang diem
     int idx = 0;
     pSV = dsSV;
     while (pSV != NULL && idx < totalSV) {
@@ -428,7 +419,7 @@ void InBangDiemTongKet(const DanhSachLopTinChi &dsLTC, const DanhSachSinhVien &d
     }
     totalSV = idx;
 
-    // Thu thập điểm cao nhất
+    // thu thap diem cao nhat
     for (int i = 0; i < totalSV; i++) {
         for (int j = 0; j < MAX_LTC; j++) {
             if (dsLTC.nodes[j] != NULL && !dsLTC.nodes[j]->huyLop) {
@@ -449,7 +440,7 @@ void InBangDiemTongKet(const DanhSachLopTinChi &dsLTC, const DanhSachSinhVien &d
         }
     }
 
-    // Sắp xếp theo MASV
+    // Sap xep theo MASV
     for (int i = 0; i < totalSV - 1; i++) {
         for (int j = 0; j < totalSV - i - 1; j++) {
             if (strcmp(diemArr[j].MASV, diemArr[j + 1].MASV) > 0) {
@@ -460,7 +451,6 @@ void InBangDiemTongKet(const DanhSachLopTinChi &dsLTC, const DanhSachSinhVien &d
         }
     }
 
-    // In bảng điểm tổng kết
     std::cout << "\n                   BANG DIEM TONG KET\n";
     std::cout << "Lop: " << maLop << "\n";
     std::cout << "+-----+------------+------------------------------------+";

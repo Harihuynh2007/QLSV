@@ -20,7 +20,7 @@ struct NodeDK {
 
 typedef NodeDK* DanhSachDangKy; // Con trỏ đầu DSLK đăng ký
 
-// --- Khai báo struct LopTinChi ---
+// --- Khai bao struct LopTinChi ---
 struct LopTinChi {
     int MALOPTC;     // Mã lớp tín chỉ
     char MAMH[11];   // Mã môn học

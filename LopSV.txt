@@ -1,0 +1,7 @@
+cntt01|cong nghe 01
+n24dccn054|huynh|hai|nam|0333333333|
+n23dccn022|Nguyen|Hung|nam|03333333333|
+#ENDCLASS
+cntt02|cong nghe 02
+#ENDCLASS
+#END

@@ -382,7 +382,7 @@ void quanLyLopTinChi(DanhSachLopTinChi &dsLTC, const DanhSachMonHoc &dsMH, const
                 }
                 break;
             }
-            case 5: { // Thêm sinh viên vào lớp tín chỉ
+            case 5: { // Them sinh vien vao lop tin chi
                 int maLTC;
                 char maSV[MAX_MASV_LEN + 1];
                 std::cout << "Nhap ma lop tin chi: ";
@@ -395,7 +395,7 @@ void quanLyLopTinChi(DanhSachLopTinChi &dsLTC, const DanhSachMonHoc &dsMH, const
                 }
                 break;
             }
-            case 6: { // Xóa sinh viên khỏi lớp tín chỉ
+            case 6: { // Xoa sinh vien khoi lop tin chi
                 int maLTC;
                 char maSV[MAX_MASV_LEN + 1];
                 std::cout << "Nhap ma lop tin chi: ";
@@ -408,7 +408,7 @@ void quanLyLopTinChi(DanhSachLopTinChi &dsLTC, const DanhSachMonHoc &dsMH, const
                 }
                 break;
             }
-            case 7: { // Nhập điểm sinh viên
+            case 7: { //Nhap diem sinh vien
                 int maLTC;
                 char maSV[MAX_MASV_LEN + 1];
                 float diem;
@@ -425,7 +425,7 @@ void quanLyLopTinChi(DanhSachLopTinChi &dsLTC, const DanhSachMonHoc &dsMH, const
                 }
                 break;
             }
-            case 8: { // In danh sách sinh viên đã đăng ký
+            case 8: {
                 int maLTC;
                 std::cout << "Nhap ma lop tin chi: ";
                 std::cin >> maLTC;
@@ -433,7 +433,7 @@ void quanLyLopTinChi(DanhSachLopTinChi &dsLTC, const DanhSachMonHoc &dsMH, const
                 InDSSVDaDangKyCuaLop(dsLTC, dsSV, maLTC);
                 break;
             }
-            case 9: { // In danh sách sinh viên sắp xếp
+            case 9: { 
                 int maLTC;
                 std::cout << "Nhap ma lop tin chi: ";
                 std::cin >> maLTC;
@@ -441,7 +441,7 @@ void quanLyLopTinChi(DanhSachLopTinChi &dsLTC, const DanhSachMonHoc &dsMH, const
                 InDSSVSapXepCuaLop(dsLTC, dsSV, maLTC);
                 break;
             }
-            case 10: { // In bảng điểm lớp tín chỉ
+            case 10: { 
                 int maLTC;
                 std::cout << "Nhap ma lop tin chi: ";
                 std::cin >> maLTC;
@@ -449,7 +449,7 @@ void quanLyLopTinChi(DanhSachLopTinChi &dsLTC, const DanhSachMonHoc &dsMH, const
                 InBangDiemLop(dsLTC, dsSV, maLTC);
                 break;
             }
-            case 11: { // Hủy tự động theo niên khóa và học kỳ
+            case 11: { 
                 int nienKhoa, hocKy;
                 std::cout << "Nhap nien khoa: ";
                 std::cin >> nienKhoa;
@@ -459,7 +459,7 @@ void quanLyLopTinChi(DanhSachLopTinChi &dsLTC, const DanhSachMonHoc &dsMH, const
                 HuyLopTuDongTheoNienKhoaHocKy(dsLTC, nienKhoa, hocKy);
                 break;
             }
-            case 12: { // Nhập điểm theo bảng
+            case 12: { 
                 int maLTC;
                 std::cout << "Nhap ma lop tin chi: ";
                 std::cin >> maLTC;
@@ -467,21 +467,21 @@ void quanLyLopTinChi(DanhSachLopTinChi &dsLTC, const DanhSachMonHoc &dsMH, const
                 NhapDiemTheoBang(dsLTC, dsSV, maLTC);
                 break;
             }
-            case 13: { // In bảng điểm môn học
+            case 13: { 
                 char maMH[11];
                 std::cout << "Nhap ma mon hoc: ";
                 std::cin.getline(maMH, 11);
                 InBangDiemMonHoc(dsLTC, dsSV, dsMH, maMH);
                 break;
             }
-            case 14: { // In bảng điểm trung bình khóa học
+            case 14: { 
                 char maLop[16];
                 std::cout << "Nhap ma lop: ";
                 std::cin.getline(maLop, 16);
                 InBangDiemTrungBinhKhoa(dsLTC, dsSV, dsMH, maLop);
                 break;
             }
-            case 15: { // In bảng điểm tổng kết
+            case 15: { 
                 char maLop[16];
                 std::cout << "Nhap ma lop: ";
                 std::cin.getline(maLop, 16);

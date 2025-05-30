@@ -17,7 +17,7 @@ struct NodeAVL {
 
 typedef NodeAVL* AVLTree;
 
-// Hàm quản lý cây AVL
+
 NodeAVL* SearchAVL(AVLTree root, const char* key);
 AVLTree InsertAVL(AVLTree root, MonHoc data);
 AVLTree DeleteAVL(AVLTree root, const char* key);
@@ -26,7 +26,7 @@ void InorderTraversal(AVLTree root, std::function<void(MonHoc)> visit); // Sử 
 void FreeAVL(AVLTree &root);
 int CountNodes(AVLTree root);
 
-// Hàm hỗ trợ
+// Ham ho tro
 int Height(NodeAVL* node);
 int Max(int a, int b);
 NodeAVL* RotateRight(NodeAVL* y);

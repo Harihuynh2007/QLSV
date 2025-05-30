@@ -485,7 +485,7 @@ void InDSSVSapXepCuaLop(const DanhSachLopTinChi &dsLTC, const DanhSachSinhVien &
 
 void HuyLopTuDongTheoNienKhoaHocKy(DanhSachLopTinChi &ds, int nienKhoa, int hocKy) {
     if (ds.soLuong == 0) {
-        std::cout << "Danh sách lớp tín chỉ rỗng.\n";
+        std::cout << "Danh sach lop tin chi rong.\n";
         return;
     }
 

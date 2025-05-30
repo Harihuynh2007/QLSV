@@ -5,7 +5,7 @@
 #include <iomanip>
 #include <new>
 
-// Hàm hỗ trợ cho cây AVL
+
 int Height(NodeAVL* node) {
     return node ? node->height : 0;
 }
