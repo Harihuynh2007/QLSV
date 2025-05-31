@@ -3,6 +3,7 @@
 #include <iostream>
 #include <cstring>
 #include <iomanip>
+#include <algorithm>
 #include <fstream>
 
 // Hàm tìm kiếm môn học theo mã
@@ -38,7 +39,6 @@ void PrintMonHoc(MonHoc mh, int stt) {
 void ThuThapMonHoc(DanhSachMonHoc ds, MonHoc* &arr, int &size, int &capacity) {
     if (ds == NULL) return;
 
-    // Mở rộng mảng nếu cần
     if (size >= capacity) {
         capacity = (capacity == 0) ? 10 : capacity * 2;
         MonHoc* newArr = new MonHoc[capacity];
@@ -149,6 +149,8 @@ void SaveDanhSachMonHoc(AVLTree ds, const char* filename) {
         return;
     }
     SaveDanhSachMonHoc_InOrder(ds, file);
+    
+    file << "#END" << std::endl;
     file.close();
 }
 
@@ -159,33 +161,37 @@ void LoadDanhSachMonHoc(AVLTree &ds, const char* filename) {
         return;
     }
 
-    ds = NULL; // Reset cây
+    ds = NULL; // reset cây
 
     std::string line;
     while (std::getline(file, line)) {
+        if (line.empty()) continue;
         if (line == "#END") break;
+
+        if (std::count(line.begin(), line.end(), '|') < 3) {
+            std::cerr << "Dong loi dinh dang: " << line << "\n";
+            continue;
+        }
 
         std::stringstream ss(line);
         std::string token;
         MonHoc mh;
 
-        std::getline(ss, token, '|'); strcpy(mh.MAMH, token.c_str());
-        std::getline(ss, token, '|'); strcpy(mh.TENMH, token.c_str());
-        std::getline(ss, token, '|'); mh.STCLT = stoi(token);
-        std::getline(ss, token, '|'); mh.STCTH = stoi(token);
+        std::getline(ss, token, '|'); strncpy(mh.MAMH, token.c_str(), 10); mh.MAMH[10] = '\0';
+        std::getline(ss, token, '|'); strncpy(mh.TENMH, token.c_str(), 50); mh.TENMH[50] = '\0';
+        std::getline(ss, token, '|'); mh.STCLT = std::stoi(token);
+        std::getline(ss, token, '|'); mh.STCTH = std::stoi(token);
 
-        InsertAVL(ds, mh); // Hàm chèn AVL bạn đã viết trước đó
+        ds = InsertAVL(ds, mh);
     }
 
     file.close();
 }
 
-// Hàm giải phóng bộ nhớ
 void GiaiPhongDSMonHoc(DanhSachMonHoc &ds) {
     FreeAVL(ds);
 }
 
-// Hàm đếm số môn học
 int DemSoMonHoc(DanhSachMonHoc ds) {
     return CountNodes(ds);
 }
