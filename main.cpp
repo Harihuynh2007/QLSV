@@ -20,8 +20,9 @@ void hienThiMenuLopSV() {
     std::cout << "3. Hieu chinh lop sinh vien\n";
     std::cout << "4. Nhap sinh vien cho lop\n";
     std::cout << "5. In danh sach sinh vien cua lop\n";
-    std::cout << "6. Quay lai\n";
-    std::cout << "Nhap lua chon (1-6): ";
+    std::cout << "6. Hieu chinh sinh vien trong lop\n";
+    std::cout << "7. Quay lai\n";
+    std::cout << "Nhap lua chon (1-7): ";
 }
 
 void quanLyLopSV(DanhSachLopSV &ds) {
@@ -98,12 +99,42 @@ void quanLyLopSV(DanhSachLopSV &ds) {
                 }
                 break;
             }
-            case 6:
+            case 6: {
+			    char maLop[16];
+			    std::cout << "Nhap ma lop: ";
+			    std::cin.getline(maLop, 16);
+			    int index = TimLopSV(ds, maLop);
+			    if (index == -1) {
+			        std::cerr << "Khong tim thay lop.\n";
+			        break;
+			    }
+			
+			    char maSV[MAX_MASV_LEN + 1];
+			    std::cout << "Nhap ma sinh vien can hieu chinh: ";
+			    std::cin.getline(maSV, MAX_MASV_LEN + 1);
+			    
+			    SinhVien svMoi;
+			    std::cout << "Nhap ho moi: ";
+			    std::cin.getline(svMoi.HO, MAX_HO_LEN + 1);
+			    std::cout << "Nhap ten moi: ";
+			    std::cin.getline(svMoi.TEN, MAX_TEN_LEN + 1);
+			    std::cout << "Nhap phai moi (Nam/Nu): ";
+			    std::cin.getline(svMoi.PHAI, MAX_PHAI_LEN + 1);
+			    std::cout << "Nhap so dien thoai moi: ";
+			    std::cin.getline(svMoi.SODT, MAX_SODT_LEN + 1);
+			    strcpy(svMoi.LOP, maLop);  // giữ nguyên lớp
+			
+			    if (HieuChinhSinhVien(ds.lop[index].dssv, maSV, svMoi)) {
+			        std::cout << "Da hieu chinh sinh vien thanh cong.\n";
+			    }
+			    break;
+			}
+            case 7:
                 break;
             default:
                 std::cerr << "Lua chon khong hop le!\n";
         }
-    } while (luaChon != 6);
+    } while (luaChon != 7);
 }
 
 void hienThiMenu() {
@@ -332,7 +363,7 @@ void quanLyLopTinChi(DanhSachLopTinChi &dsLTC, const DanhSachMonHoc &dsMH, const
         clearInputBuffer();
 
         switch (luaChon) {
-            case 1: { // Thêm lớp tín chỉ
+            case 1: { 
                 LopTinChi ltc;
                 nhapLopTinChi(ltc, dsMH);
                 if (ltc.MAMH[0] != '\0') {
@@ -498,7 +529,7 @@ void quanLyLopTinChi(DanhSachLopTinChi &dsLTC, const DanhSachMonHoc &dsMH, const
             default:
                 std::cerr << "Loi: Lua chon khong hop le!\n";
         }
-    } while (luaChon != 16);
+    } while (luaChon != 17);
 }
 
 int main() {
@@ -514,6 +545,14 @@ int main() {
 	
 	LoadDanhSachMonHoc(dsMH, "MonHoc.txt");
     LoadDanhSachLopSV(dsLopSV, "LopSV.txt");
+	    
+	for (int i = 0; i < dsLopSV.n; i++) {
+	    NodeSV* p = dsLopSV.lop[i].dssv;
+	    while (p != NULL) {
+	        ThemSinhVien(dsSV, p->data);
+	        p = p->next;
+	    }
+	}
     LoadDanhSachLopTinChi(dsLTC, "LopTinChi.txt");
     
     int luaChon;
@@ -541,7 +580,7 @@ int main() {
 		    default:
 		        std::cerr << "Loi: Lua chon khong hop le!\n";
 		}
-    } while (luaChon != 4);
+    } while (luaChon != 5);
 	
 	// === Save du lieu truoc khi thoat ===
     SaveDanhSachMonHoc(dsMH, "MonHoc.txt");
