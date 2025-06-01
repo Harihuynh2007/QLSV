@@ -26,18 +26,17 @@ bool IsEmpty(const DanhSachSinhVien first) {
     return first == NULL;
 }
 
-// Tìm sinh viên theo mã, trả về con trỏ đến node hoặc NULL nếu không tìm thấy
 NodeSV* TimSinhVienTheoMa(DanhSachSinhVien first, const char* maSV) {
-    if (maSV == NULL) return NULL; // Tham số không hợp lệ
+    if (maSV == NULL) return NULL; 
     
     NodeSV* current = first;
     while (current != NULL) {
         if (strcmp(current->data.MASV, maSV) == 0) {
-            return current; // Trả về node nếu tìm thấy
+            return current; 
         }
         current = current->next;
     }
-    return NULL; // Không tìm thấy
+    return NULL; 
 }
 
 // Thêm sinh viên vào danh sách (thêm vào đầu danh sách cho đơn giản)

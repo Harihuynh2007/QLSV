@@ -6,7 +6,7 @@
 #include <algorithm>
 #include <fstream>
 
-// Hàm tìm kiếm môn học theo mã
+
 NodeAVL* TimMonHocTheoMa(DanhSachMonHoc ds, const char* maMH) {
     return SearchAVL(ds, maMH);
 }

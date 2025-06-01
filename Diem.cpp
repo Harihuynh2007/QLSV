@@ -114,7 +114,7 @@ void NhapDiemTheoBang(DanhSachLopTinChi &dsLTC, const DanhSachSinhVien &dsSV, in
         std::cout << "| " << std::setw(3) << std::left << (i + 1) << " | ";
         std::cout << std::setw(10) << std::left << diemArr[i].MASV << " | ";
         char hoTen[45];
-        strcpy(hoTen, diemArr[i].HO);
+        strcpy(hoTen, diemArr[i].	HO);
         strcat(hoTen, " ");
         strcat(hoTen, diemArr[i].TEN);
         std::cout << std::setw(34) << std::left << hoTen << " | ";

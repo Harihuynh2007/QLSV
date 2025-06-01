@@ -180,19 +180,20 @@ void hienThiMenuLopTinChi() {
     std::cout << "4. Huy lop tin chi\n";
     std::cout << "5. Them sinh vien vao lop tin chi\n";
     std::cout << "6. Xoa sinh vien khoi lop tin chi\n";
-    std::cout << "7. Nhap diem sinh vien\n";
-    std::cout << "8. Dang ky lop tin chi theo hoc ky\n";
-    std::cout << "9. In danh sach sinh vien da dang ky\n";
-    std::cout << "10. In danh sach sinh vien sap xep\n";
-    std::cout << "11. In bang diem lop tin chi\n";
-    std::cout << "12. Huy lop tu dong theo nien khoa va hoc ky\n";
-    std::cout << "13. Nhap diem theo bang\n";
-    std::cout << "14. In bang diem mon hoc\n";
-    std::cout << "15. In bang diem trung binh khoa hoc\n";
-    std::cout << "16. In bang diem tong ket\n";
+    std::cout << "7. Nhap diem sinh vien (theo tung SV)\n";
+    std::cout << "8. In danh sach sinh vien da dang ky\n";
+    std::cout << "9. In danh sach sinh vien da sap xep\n";
+    std::cout << "10. In bang diem lop tin chi\n"; // ✅ Sửa lại chỗ sai
+    std::cout << "11. Huy lop tu dong theo nien khoa va hoc ky\n";
+    std::cout << "12. Nhap diem theo bang\n";
+    std::cout << "13. In bang diem mon hoc\n";
+    std::cout << "14. In bang diem trung binh khoa hoc\n";
+    std::cout << "15. In bang diem tong ket\n";
+    std::cout << "16. Dang ky mon hoc cho sinh vien (theo hoc ky)\n";
     std::cout << "17. Quay lai\n";
     std::cout << "Nhap lua chon (1-17): ";
 }
+
 
 // Hàm nhập thông tin môn học
 void nhapMonHoc(MonHoc &mh) {

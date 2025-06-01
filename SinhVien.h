@@ -10,11 +10,11 @@
 
 // Cấu trúc lưu thông tin sinh viên
 struct SinhVien {
-    char MASV[MAX_MASV_LEN + 1];  // Mã sinh viên, tối đa 15 ký tự + null terminator
-    char HO[MAX_HO_LEN + 1];      // Họ sinh viên, tối đa 30 ký tự + null terminator
-    char TEN[MAX_TEN_LEN + 1];    // Tên sinh viên, tối đa 10 ký tự + null terminator
-    char PHAI[MAX_PHAI_LEN + 1];  // Phái (Nam/Nữ/Khác), tối đa 4 ký tự + null terminator
-    char SODT[MAX_SODT_LEN + 1];  // Số điện thoại, tối đa 15 ký tự + null terminator
+    char MASV[MAX_MASV_LEN + 1];  
+    char HO[MAX_HO_LEN + 1];      
+    char TEN[MAX_TEN_LEN + 1];    
+    char PHAI[MAX_PHAI_LEN + 1];  
+    char SODT[MAX_SODT_LEN + 1];  
 	char LOP[16];
 };
 
