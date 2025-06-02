@@ -7,6 +7,7 @@
 #define MAX_TEN_LEN 10
 #define MAX_PHAI_LEN 4 // Nam/Nu/Khac
 #define MAX_SODT_LEN 15
+#define MAX_LOP_LEN 16
 
 // Cấu trúc lưu thông tin sinh viên
 struct SinhVien {

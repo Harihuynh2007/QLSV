@@ -22,23 +22,23 @@ typedef NodeDK* DanhSachDangKy; // Con trỏ đầu DSLK đăng ký
 
 // --- Khai bao struct LopTinChi ---
 struct LopTinChi {
-    int MALOPTC;     // Mã lớp tín chỉ
-    char MAMH[11];   // Mã môn học
-    int nienkhoa;    // Niên khóa
-    int hocky;       // Học kỳ
-    int nhom;        // Nhóm
-    int sv_min;      // Số SV tối thiểu
-    int sv_max;      // Số SV tối đa
-    bool huyLop;     // Cờ hủy lớp
-    DanhSachDangKy dssvdk; // Con trỏ tới DSLK sinh viên đăng ký
-    int soSVDK;      // Số lượng SV đã đăng ký hiện tại
+    int MALOPTC;     
+    char MAMH[11];   
+    int nienkhoa;    
+    int hocky;       
+    int nhom;        
+    int sv_min;      
+    int sv_max;      
+    bool huyLop;     
+    DanhSachDangKy dssvdk; 
+    int soSVDK;      
 };
 
 
 const int MAX_LTC = 10000; 
 struct DanhSachLopTinChi {
-    LopTinChi* nodes[MAX_LTC]; // Mang con tro toi lop tin chi
-    int soLuong;               // So luong lop tin chi hien co
+    LopTinChi* nodes[MAX_LTC]; 
+    int soLuong;               
 };
 
 

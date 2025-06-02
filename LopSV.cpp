@@ -166,11 +166,24 @@ void LoadDanhSachLopSV(DanhSachLopSV &ds, const char* filename) {
             std::getline(ss, token, '|'); strcpy(sv.TEN, token.c_str());
             std::getline(ss, token, '|'); strcpy(sv.PHAI, token.c_str());
             std::getline(ss, token, '|'); strcpy(sv.SODT, token.c_str());
-            std::getline(ss, token, '|'); strcpy(sv.LOP, token.c_str());
+            strcpy(sv.LOP, ds.lop[currentIndex].MALOP);
+
             ThemSinhVien(ds.lop[currentIndex].dssv, sv);
         }
     }
 
     file.close();
 }
+
+void GopTatCaSinhVienTuLopSV(const DanhSachLopSV &dsLop, DanhSachSinhVien &dsSV) {
+    KhoiTaoDSSinhVien(dsSV); 
+    for (int i = 0; i < dsLop.n; i++) {
+        NodeSV* p = dsLop.lop[i].dssv;
+        while (p != NULL) {
+            ThemSinhVien(dsSV, p->data);
+            p = p->next;
+        }
+    }
+}
+
 

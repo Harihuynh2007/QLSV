@@ -477,7 +477,7 @@ void InBangDiemTongKet(const DanhSachLopTinChi &dsLTC, const DanhSachSinhVien &d
         strcpy(hoTen, diemArr[i].HO);
         strcat(hoTen, " ");
         strcat(hoTen, diemArr[i].TEN);
-        std::cout << std::setw(34) << std::left << hoTen << " | ";
+        std::cout << std::setw(31) << std::left << hoTen << " | ";
         for (int j = 0; j < numMH; j++) {
             if (diemArr[i].diem[j] >= 0.0f) {
                 std::cout << std::setw(9) << std::right << diemArr[i].diem[j] << " |";

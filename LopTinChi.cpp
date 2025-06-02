@@ -473,6 +473,9 @@ void InDSSVSapXepCuaLop(const DanhSachLopTinChi &dsLTC, const DanhSachSinhVien &
         std::cout << std::setw(10) << std::left << svArr[i].MASV << " | ";
         std::cout << std::setw(23) << std::left << svArr[i].HO << " | ";
         std::cout << std::setw(16) << std::left << svArr[i].TEN << " | ";
+        
+        std::cout << "[DEBUG_LOP=" << svArr[i].LOP << "] ";
+
         std::cout << std::setw(13) << std::left << svArr[i].LOP << " |\n";
     }
 
@@ -513,7 +516,7 @@ void HuyLopTuDongTheoNienKhoaHocKy(DanhSachLopTinChi &ds, int nienKhoa, int hocK
         std::cout << "Đã hủy " << count << " lớp tín chỉ.\n";
     }
 }
-
+ 
 void InBangDiemLop(const DanhSachLopTinChi &dsLTC, const DanhSachSinhVien &dsSV, int maLTC) {
     int index = TimLopTinChiTheoMa(dsLTC, maLTC);
     if (index == -1) {

@@ -543,17 +543,12 @@ int main() {
     KhoiTaoDSLopSV(dsLopSV);
     KhoiTaoDSSinhVien(dsSV);
     KhoiTaoDSLTC(dsLTC);
-	
+
 	LoadDanhSachMonHoc(dsMH, "MonHoc.txt");
     LoadDanhSachLopSV(dsLopSV, "LopSV.txt");
-	    
-	for (int i = 0; i < dsLopSV.n; i++) {
-	    NodeSV* p = dsLopSV.lop[i].dssv;
-	    while (p != NULL) {
-	        ThemSinhVien(dsSV, p->data);
-	        p = p->next;
-	    }
-	}
+    
+    GopTatCaSinhVienTuLopSV(dsLopSV, dsSV);
+
     LoadDanhSachLopTinChi(dsLTC, "LopTinChi.txt");
     
     int luaChon;

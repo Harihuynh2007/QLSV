@@ -57,7 +57,6 @@ void ThuThapMonHoc(DanhSachMonHoc ds, MonHoc* &arr, int &size, int &capacity) {
     ThuThapMonHoc(ds->right, arr, size, capacity);
 }
 
-// Hàm sắp xếp mảng theo TENMH
 void SapXepTheoTenMonHoc(MonHoc* arr, int size) {
     for (int i = 0; i < size - 1; i++) {
         for (int j = 0; j < size - i - 1; j++) {

@@ -1,2 +1,11 @@
-int123|ctdl|3|3
+MH101|Lap trinh co ban|3|3
+MH102|Cau truc du lieu|3|3
+MH103|Co so du lieu|4|3
+MH104|Mang may tinh|3|2
+MH105|Tri tue nhan tao|4|4
+MH106|He dieu hanh|3|3
+MH107|Phan tich thiet ke HTTT|3|3
+MH108|An toan thong tin|3|2
+MH109|Ky thuat lap trinh|4|4
+MH110|Hoc may|3|3
 #END

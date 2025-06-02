@@ -39,9 +39,8 @@ NodeSV* TimSinhVienTheoMa(DanhSachSinhVien first, const char* maSV) {
     return NULL; 
 }
 
-// Thêm sinh viên vào danh sách (thêm vào đầu danh sách cho đơn giản)
+
 bool ThemSinhVien(DanhSachSinhVien &first, SinhVien sv) {
-    // Kiểm tra sinh viên đã tồn tại chưa
     if (TimSinhVienTheoMa(first, sv.MASV) != NULL) {
         std::cerr << "Loi: Ma sinh vien '" << sv.MASV << "' da ton tai!\n";
         return false;
@@ -71,6 +70,9 @@ bool ThemSinhVien(DanhSachSinhVien &first, SinhVien sv) {
     strncpy(newNode->data.SODT, sv.SODT, MAX_SODT_LEN);
     newNode->data.SODT[MAX_SODT_LEN] = '\0';
     
+    strncpy(newNode->data.LOP, sv.LOP, MAX_LOP_LEN);
+	newNode->data.LOP[MAX_LOP_LEN] = '\0';
+
     // Thêm node vào đầu danh sách
     newNode->next = first;
     first = newNode;
