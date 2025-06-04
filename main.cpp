@@ -180,19 +180,20 @@ void hienThiMenuLopTinChi() {
     std::cout << "4. Huy lop tin chi\n";
     std::cout << "5. Them sinh vien vao lop tin chi\n";
     std::cout << "6. Xoa sinh vien khoi lop tin chi\n";
-    std::cout << "7. Nhap diem sinh vien (theo tung SV)\n";
-    std::cout << "8. In danh sach sinh vien da dang ky\n";
-    std::cout << "9. In danh sach sinh vien da sap xep\n";
-    std::cout << "10. In bang diem lop tin chi\n"; // ✅ Sửa lại chỗ sai
-    std::cout << "11. Huy lop tu dong theo nien khoa va hoc ky\n";
-    std::cout << "12. Nhap diem theo bang\n";
-    std::cout << "13. In bang diem mon hoc\n";
-    std::cout << "14. In bang diem trung binh khoa hoc\n";
-    std::cout << "15. In bang diem tong ket\n";
-    std::cout << "16. Dang ky mon hoc cho sinh vien (theo hoc ky)\n";
+    std::cout << "7. Dang ky mon hoc cho sinh vien (theo hoc ky)\n";   // ← Đổi thành 7
+    std::cout << "8. Nhap diem sinh vien\n";                         // ← Đổi thành 8
+    std::cout << "9. In danh sach SV da dang ky cua lop\n";
+    std::cout << "10. In DSSV sap xep cua lop\n";
+    std::cout << "11. In bang diem lop\n";
+    std::cout << "12. Huy lop tu dong theo nien khoa hoc ky\n";
+    std::cout << "13. Nhap diem theo bang\n";
+    std::cout << "14. In bang diem mon hoc\n";
+    std::cout << "15. In bang diem trung binh khoa\n";
+    std::cout << "16. In bang diem tong ket\n";
     std::cout << "17. Quay lai\n";
     std::cout << "Nhap lua chon (1-17): ";
 }
+
 
 
 
@@ -440,7 +441,11 @@ void quanLyLopTinChi(DanhSachLopTinChi &dsLTC, const DanhSachMonHoc &dsMH, const
                 }
                 break;
             }
-            case 7: { //Nhap diem sinh vien
+            case 7: {
+			    DangKyLopTinChiTheoHocKy(dsLTC, dsSV, dsMH);
+			    break;
+			}
+            case 8: { //Nhap diem sinh vien
                 int maLTC;
                 char maSV[MAX_MASV_LEN + 1];
                 float diem;
@@ -457,7 +462,7 @@ void quanLyLopTinChi(DanhSachLopTinChi &dsLTC, const DanhSachMonHoc &dsMH, const
                 }
                 break;
             }
-            case 8: {
+            case 9: {
                 int maLTC;
                 std::cout << "Nhap ma lop tin chi: ";
                 std::cin >> maLTC;
@@ -465,7 +470,7 @@ void quanLyLopTinChi(DanhSachLopTinChi &dsLTC, const DanhSachMonHoc &dsMH, const
                 InDSSVDaDangKyCuaLop(dsLTC, dsSV, maLTC);
                 break;
             }
-            case 9: { 
+            case 10: { 
                 int maLTC;
                 std::cout << "Nhap ma lop tin chi: ";
                 std::cin >> maLTC;
@@ -473,7 +478,7 @@ void quanLyLopTinChi(DanhSachLopTinChi &dsLTC, const DanhSachMonHoc &dsMH, const
                 InDSSVSapXepCuaLop(dsLTC, dsSV, maLTC);
                 break;
             }
-            case 10: { 
+            case 11: { 
                 int maLTC;
                 std::cout << "Nhap ma lop tin chi: ";
                 std::cin >> maLTC;
@@ -481,7 +486,7 @@ void quanLyLopTinChi(DanhSachLopTinChi &dsLTC, const DanhSachMonHoc &dsMH, const
                 InBangDiemLop(dsLTC, dsSV, maLTC);
                 break;
             }
-            case 11: { 
+            case 12: { 
                 int nienKhoa, hocKy;
                 std::cout << "Nhap nien khoa: ";
                 std::cin >> nienKhoa;
@@ -491,7 +496,7 @@ void quanLyLopTinChi(DanhSachLopTinChi &dsLTC, const DanhSachMonHoc &dsMH, const
                 HuyLopTuDongTheoNienKhoaHocKy(dsLTC, nienKhoa, hocKy);
                 break;
             }
-            case 12: { 
+            case 13: { 
                 int maLTC;
                 std::cout << "Nhap ma lop tin chi: ";
                 std::cin >> maLTC;
@@ -499,31 +504,27 @@ void quanLyLopTinChi(DanhSachLopTinChi &dsLTC, const DanhSachMonHoc &dsMH, const
                 NhapDiemTheoBang(dsLTC, dsSV, maLTC);
                 break;
             }
-            case 13: { 
+            case 14: { 
                 char maMH[11];
                 std::cout << "Nhap ma mon hoc: ";
                 std::cin.getline(maMH, 11);
                 InBangDiemMonHoc(dsLTC, dsSV, dsMH, maMH);
                 break;
             }
-            case 14: { 
+            case 15: { 
                 char maLop[16];
                 std::cout << "Nhap ma lop: ";
                 std::cin.getline(maLop, 16);
                 InBangDiemTrungBinhKhoa(dsLTC, dsSV, dsMH, maLop);
                 break;
             }
-            case 15: { 
+            case 16: { 
                 char maLop[16];
                 std::cout << "Nhap ma lop: ";
                 std::cin.getline(maLop, 16);
                 InBangDiemTongKet(dsLTC, dsSV, dsMH, maLop);
                 break;
             }
-            case 16: {
-			    DangKyLopTinChiTheoHocKy(dsLTC, dsSV, dsMH);
-			    break;
-			}
 
             case 17: 
                 break;

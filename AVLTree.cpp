@@ -127,7 +127,7 @@ AVLTree DeleteAVL(AVLTree root, const char* key) {
             if (temp == NULL) {
                 temp = root;
                 root = NULL;
-            } else .// co 1 node
+            } else // co 1 node
                 *root = *temp;
             delete temp;
         } else {
