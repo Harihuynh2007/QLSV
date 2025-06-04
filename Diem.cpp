@@ -421,7 +421,6 @@ void InBangDiemTongKet(const DanhSachLopTinChi &dsLTC, const DanhSachSinhVien &d
 	            }
 	        }
 	    }
-	
 	    if (monDuocHoc && numMH < MAX_MONHOC) {
 	        strcpy(maMHList[numMH], mh.MAMH);
 	        numMH++;
@@ -429,7 +428,6 @@ void InBangDiemTongKet(const DanhSachLopTinChi &dsLTC, const DanhSachSinhVien &d
 	});
 
 
-  
     int idx = 0;
     pSV = dsSV;
     while (pSV != NULL && idx < totalSV) {
