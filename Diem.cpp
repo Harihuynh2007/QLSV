@@ -66,13 +66,13 @@ void NhapDiemTheoBang(DanhSachLopTinChi &dsLTC, const DanhSachSinhVien &dsSV, in
         float DIEM;
         bool daCoDiem;
     };
-
+	
     DiemSV* diemArr = new (std::nothrow) DiemSV[count];
     if (!diemArr) {
         std::cerr << "Loi: Khong du bo nho de tao bang diem.\n";
         return;
     }
-
+	//demsosv
     int idx = 0;
     NodeDK* p = lop->dssvdk;
     while (p != NULL && idx < count) {
@@ -260,6 +260,13 @@ void InBangDiemTrungBinhKhoa(const DanhSachLopTinChi &dsLTC, const DanhSachSinhV
         std::cout << "Loi: Ma lop khong hop le!\n";
         return;
     }
+    
+    int totalSV = 0;
+    NodeSV* pSV = dsSV;
+    while (pSV != NULL) {
+        if (strcmp(pSV->data.LOP, maLop) == 0) totalSV++;
+        pSV = pSV->next;
+    }
 
     struct DiemTB {
         char MASV[16];
@@ -268,19 +275,8 @@ void InBangDiemTrungBinhKhoa(const DanhSachLopTinChi &dsLTC, const DanhSachSinhV
         float diemTB;
         int tongTinChi;
     };
+	DiemTB* diemArr = new (std::nothrow) DiemTB[totalSV];
 
-    int totalSV = 0;
-    NodeSV* pSV = dsSV;
-    while (pSV != NULL) {
-        if (strcmp(pSV->data.LOP, maLop) == 0) totalSV++;
-        pSV = pSV->next;
-    }
-    if (totalSV == 0) {
-        std::cout << "Lop " << maLop << " khong co sinh vien!\n";
-        return;
-    }
-
-    DiemTB* diemArr = new (std::nothrow) DiemTB[totalSV];
     if (!diemArr) {
         std::cerr << "Loi: Khong du bo nho de tao bang diem trung binh!\n";
         return;
@@ -300,6 +296,11 @@ void InBangDiemTrungBinhKhoa(const DanhSachLopTinChi &dsLTC, const DanhSachSinhV
         pSV = pSV->next;
     }
     totalSV = idx;
+    
+    if (totalSV == 0) {
+        std::cout << "Lop " << maLop << " khong co sinh vien!\n";
+        return;
+    }
 
     for (int i = 0; i < totalSV; i++) {
         float tongDiem = 0.0f;
@@ -308,6 +309,7 @@ void InBangDiemTrungBinhKhoa(const DanhSachLopTinChi &dsLTC, const DanhSachSinhV
             if (dsLTC.nodes[j] != NULL && !dsLTC.nodes[j]->huyLop) {
                 NodeDK* pDK = dsLTC.nodes[j]->dssvdk;
                 while (pDK != NULL) {
+                	//tinhdiem
                     if (strcmp(pDK->data.MASV, diemArr[i].MASV) == 0 && pDK->data.daCoDiem) {
                         NodeAVL* pMH = TimMonHocTheoMa(dsMH, dsLTC.nodes[j]->MAMH);
                         int tinChi = (pMH != NULL) ? (pMH->data.STCLT + pMH->data.STCTH) : 0;
@@ -324,7 +326,7 @@ void InBangDiemTrungBinhKhoa(const DanhSachLopTinChi &dsLTC, const DanhSachSinhV
         diemArr[i].tongTinChi = tongTinChi;
     }
 
- 
+ 	//bbsort
     for (int i = 0; i < totalSV - 1; i++) {
         for (int j = 0; j < totalSV - i - 1; j++) {
             if (strcmp(diemArr[j].MASV, diemArr[j + 1].MASV) > 0) {
@@ -377,6 +379,7 @@ void InBangDiemTongKet(const DanhSachLopTinChi &dsLTC, const DanhSachSinhVien &d
         if (strcmp(pSV->data.LOP, maLop) == 0) totalSV++;
         pSV = pSV->next;
     }
+    
     if (totalSV == 0) {
         std::cout << "Lop " << maLop << " khong co sinh vien!\n";
         return;
@@ -402,7 +405,7 @@ void InBangDiemTongKet(const DanhSachLopTinChi &dsLTC, const DanhSachSinhVien &d
 	
 	InorderTraversal(dsMH, [&](MonHoc mh) {
 	    bool monDuocHoc = false;
-	
+	//duyetcaymh
 	    for (int i = 0; i < totalSV && !monDuocHoc; i++) {
 	        for (int j = 0; j < MAX_LTC && !monDuocHoc; j++) {
 	            if (dsLTC.nodes[j] != NULL && !dsLTC.nodes[j]->huyLop &&
