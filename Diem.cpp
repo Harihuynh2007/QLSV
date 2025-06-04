@@ -396,11 +396,36 @@ void InBangDiemTongKet(const DanhSachLopTinChi &dsLTC, const DanhSachSinhVien &d
     }
 
    
-    std::vector<std::string> maMHList;
-    InorderTraversal(dsMH, [&maMHList](MonHoc mh) {
-        maMHList.push_back(std::string(mh.MAMH));
-    });
-    int numMH = maMHList.size();
+    const int MAX_MONHOC = 100;
+	char maMHList[MAX_MONHOC][11];
+	int numMH = 0;
+	
+	InorderTraversal(dsMH, [&](MonHoc mh) {
+	    bool monDuocHoc = false;
+	
+	    for (int i = 0; i < totalSV && !monDuocHoc; i++) {
+	        for (int j = 0; j < MAX_LTC && !monDuocHoc; j++) {
+	            if (dsLTC.nodes[j] != NULL && !dsLTC.nodes[j]->huyLop &&
+	                strcmp(dsLTC.nodes[j]->MAMH, mh.MAMH) == 0) {
+	
+	                NodeDK* pDK = dsLTC.nodes[j]->dssvdk;
+	                while (pDK != NULL) {
+	                    if (strcmp(pDK->data.MASV, diemArr[i].MASV) == 0 && pDK->data.daCoDiem) {
+	                        monDuocHoc = true;
+	                        break;
+	                    }
+	                    pDK = pDK->next;
+	                }
+	            }
+	        }
+	    }
+	
+	    if (monDuocHoc && numMH < MAX_MONHOC) {
+	        strcpy(maMHList[numMH], mh.MAMH);
+	        numMH++;
+	    }
+	});
+
 
   
     int idx = 0;
@@ -427,7 +452,7 @@ void InBangDiemTongKet(const DanhSachLopTinChi &dsLTC, const DanhSachSinhVien &d
                 while (pDK != NULL) {
                     if (strcmp(pDK->data.MASV, diemArr[i].MASV) == 0 && pDK->data.daCoDiem) {
                         for (int k = 0; k < numMH; k++) {
-                            if (strcmp(dsLTC.nodes[j]->MAMH, maMHList[k].c_str()) == 0) {
+                            if (strcmp(dsLTC.nodes[j]->MAMH, maMHList[k]) == 0) {
                                 if (diemArr[i].diem[k] < pDK->data.DIEM) {
                                     diemArr[i].diem[k] = pDK->data.DIEM;
                                 }
