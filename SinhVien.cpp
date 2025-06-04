@@ -205,7 +205,7 @@ void InDanhSachSinhVienSapXepTheoTen(const DanhSachSinhVien first) {
         p = p->next;
     }
 
-    // sap xep theo ho va ten
+    // sap xep theo ho va ten bbsort
     for (int i = 0; i < count - 1; i++) {
         for (int j = 0; j < count - i - 1; j++) {
             int cmp = strcmp(svArr[j]->data.TEN, svArr[j + 1]->data.TEN);

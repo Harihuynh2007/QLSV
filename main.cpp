@@ -174,22 +174,22 @@ void hienThiMenuSinhVien() {
 
 void hienThiMenuLopTinChi() {
     std::cout << "\n--- QUAN LY LOP TIN CHI ---\n";
-    std::cout << "1. Them lop tin chi\n";
-    std::cout << "2. Xoa lop tin chi\n";
-    std::cout << "3. Hieu chinh lop tin chi\n";
-    std::cout << "4. Huy lop tin chi\n";
-    std::cout << "5. Them sinh vien vao lop tin chi\n";
+    std::cout << "1. Them lop tin chi\n"; //a
+    std::cout << "2. Xoa lop tin chi\n"; //a
+    std::cout << "3. Hieu chinh lop tin chi\n"; //a
+    std::cout << "4. Huy lop tin chi\n"; //h
+    std::cout << "5. Them sinh vien vao lop tin chi\n"; 
     std::cout << "6. Xoa sinh vien khoi lop tin chi\n";
-    std::cout << "7. Dang ky mon hoc cho sinh vien (theo hoc ky)\n";   // ← Đổi thành 7
-    std::cout << "8. Nhap diem sinh vien\n";                         // ← Đổi thành 8
-    std::cout << "9. In danh sach SV da dang ky cua lop\n";
-    std::cout << "10. In DSSV sap xep cua lop\n";
-    std::cout << "11. In bang diem lop\n";
-    std::cout << "12. Huy lop tu dong theo nien khoa hoc ky\n";
-    std::cout << "13. Nhap diem theo bang\n";
-    std::cout << "14. In bang diem mon hoc\n";
-    std::cout << "15. In bang diem trung binh khoa\n";
-    std::cout << "16. In bang diem tong ket\n";
+    std::cout << "7. Dang ky mon hoc cho sinh vien (theo hoc ky)\n";   //g
+    std::cout << "8. Nhap diem sinh vien\n";      // i                   
+    std::cout << "9. In danh sach SV da dang ky cua lop\n"; //b
+    std::cout << "10. In DSSV sap xep cua lop\n"; //d
+    std::cout << "11. In bang diem lop\n"; //j
+    std::cout << "12. Huy lop tu dong theo nien khoa hoc ky\n"; //h
+    std::cout << "13. Nhap diem theo bang\n"; //i
+    std::cout << "14. In bang diem mon hoc\n"; //j
+    std::cout << "15. In bang diem trung binh khoa\n"; //k
+    std::cout << "16. In bang diem tong ket\n"; //L
     std::cout << "17. Quay lai\n";
     std::cout << "Nhap lua chon (1-17): ";
 }

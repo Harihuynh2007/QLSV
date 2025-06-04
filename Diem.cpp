@@ -153,7 +153,18 @@ void InBangDiemMonHoc(const DanhSachLopTinChi &dsLTC, const DanhSachSinhVien &ds
     if (pMH != NULL) {
         strcpy(tenMH, pMH->data.TENMH);
     }
-
+	
+	int totalSV = 0;
+    for (int i = 0; i < MAX_LTC; i++) {
+        if (dsLTC.nodes[i] != NULL && strcmp(dsLTC.nodes[i]->MAMH, maMH) == 0 && !dsLTC.nodes[i]->huyLop) {
+            totalSV += dsLTC.nodes[i]->soSVDK;
+        }
+    }
+    if (totalSV == 0) {
+        std::cout << "Mon hoc '" << maMH << "' chua co sinh vien dang ky!\n";
+        return;
+    }
+    
     int countLTC = 0;
     for (int i = 0; i < MAX_LTC; i++) {
         if (dsLTC.nodes[i] != NULL && strcmp(dsLTC.nodes[i]->MAMH, maMH) == 0 && !dsLTC.nodes[i]->huyLop) {
@@ -165,7 +176,6 @@ void InBangDiemMonHoc(const DanhSachLopTinChi &dsLTC, const DanhSachSinhVien &ds
         return;
     }
 
-
     struct DiemSV {
         char MASV[16];
         char HO[31];
@@ -175,24 +185,14 @@ void InBangDiemMonHoc(const DanhSachLopTinChi &dsLTC, const DanhSachSinhVien &ds
         int maLTC;
     };
 
-    int totalSV = 0;
-    for (int i = 0; i < MAX_LTC; i++) {
-        if (dsLTC.nodes[i] != NULL && strcmp(dsLTC.nodes[i]->MAMH, maMH) == 0 && !dsLTC.nodes[i]->huyLop) {
-            totalSV += dsLTC.nodes[i]->soSVDK;
-        }
-    }
-    if (totalSV == 0) {
-        std::cout << "Mon hoc '" << maMH << "' chua co sinh vien dang ky!\n";
-        return;
-    }
 
     DiemSV* diemArr = new (std::nothrow) DiemSV[totalSV];
     if (!diemArr) {
         std::cerr << "Loi: Khong du bo nho de tao bang diem mon hoc!\n";
         return;
     }
-
     int idx = 0;
+    
     for (int i = 0; i < MAX_LTC; i++) {
         if (dsLTC.nodes[i] != NULL && strcmp(dsLTC.nodes[i]->MAMH, maMH) == 0 && !dsLTC.nodes[i]->huyLop) {
             LopTinChi* lop = dsLTC.nodes[i];
@@ -251,8 +251,52 @@ void InBangDiemMonHoc(const DanhSachLopTinChi &dsLTC, const DanhSachSinhVien &ds
     }
     std::cout << "+-----+------------+------------------------------------+-------+-----------------+\n";
     std::cout << "Tong so sinh vien: " << totalSV << "\n";
+	
+	
+	// ====== GIAO DIỆN NHẬP ĐIỂM TỐI ƯU ======
+	char masvInput[16];
+	std::cout << "\nBan co muon cap nhat diem cho sinh vien? (Y/N): ";
+	char choice;
+	std::cin >> choice;
+	std::cin.ignore(10000, '\n');
+	
+	if (choice == 'Y' || choice == 'y') {
+	    while (true) {
+	        std::cout << "Nhap MASV can cap nhat (Enter de dung): ";
+	        std::cin.getline(masvInput, 16);
+	        if (strlen(masvInput) == 0) break;
+	
+	        // Tim trong mang diemArr
+	        bool found = false;
+	        for (int i = 0; i < idx; i++) {
+	            if (strcmp(diemArr[i].MASV, masvInput) == 0) {
+	                float diemMoi;
+	                std::cout << "Nhap diem moi cho " << diemArr[i].HO << " " << diemArr[i].TEN << ": ";
+	                std::cin >> diemMoi;
+	                std::cin.ignore(10000, '\n');
+	
+	                if (diemMoi >= 0.0f && diemMoi <= 10.0f) {
+	                    NhapDiemSinhVienLopTC(const_cast<DanhSachLopTinChi&>(dsLTC),
+	                                          diemArr[i].maLTC,
+	                                          diemArr[i].MASV,
+	                                          diemMoi);
+	                    std::cout << "Da cap nhat diem.\n";
+	                } else {
+	                    std::cerr << "Diem khong hop le! Bo qua.\n";
+	                }
+	                found = true;
+	                break;
+	            }
+	        }
+	
+	        if (!found) {
+	            std::cerr << "⚠️ MASV khong ton tai trong danh sach vua in.\n";
+	        }
+	    }
+	}
 
     delete[] diemArr;
+    std::cout << "Da cap nhat diem xong.\n";
 }
 
 void InBangDiemTrungBinhKhoa(const DanhSachLopTinChi &dsLTC, const DanhSachSinhVien &dsSV, const DanhSachMonHoc &dsMH, const char* maLop) {
