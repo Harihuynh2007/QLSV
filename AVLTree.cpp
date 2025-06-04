@@ -51,7 +51,7 @@ NodeAVL* MinValueNode(NodeAVL* node) {
     return current;
 }
 
-// Hàm tìm kiếm trong cây
+
 NodeAVL* SearchAVL(AVLTree root, const char* key) {
     if (root == NULL || strcmp(root->data.MAMH, key) == 0)
         return root;
@@ -61,7 +61,7 @@ NodeAVL* SearchAVL(AVLTree root, const char* key) {
     return SearchAVL(root->right, key);
 }
 
-// Hàm chèn vào cây AVL
+
 AVLTree InsertAVL(AVLTree root, MonHoc data) {
     if (root == NULL) {
         NodeAVL* newNode = new (std::nothrow) NodeAVL;
@@ -108,7 +108,7 @@ AVLTree InsertAVL(AVLTree root, MonHoc data) {
     return root;
 }
 
-// Hàm xóa node khỏi cây AVL
+
 AVLTree DeleteAVL(AVLTree root, const char* key) {
     if (root == NULL) return root;
 
@@ -157,7 +157,7 @@ AVLTree DeleteAVL(AVLTree root, const char* key) {
     return root;
 }
 
-// Hàm cập nhật dữ liệu
+
 void UpdateAVL(AVLTree root, const char* key, MonHoc newData) {
     NodeAVL* node = SearchAVL(root, key);
     if (node != NULL) {
@@ -170,7 +170,7 @@ void UpdateAVL(AVLTree root, const char* key, MonHoc newData) {
     }
 }
 
-// Hàm duyệt inorder
+
 void InorderTraversal(AVLTree root, std::function<void(MonHoc)> visit) {
     if (root != NULL) {
         InorderTraversal(root->left, visit);
@@ -179,7 +179,7 @@ void InorderTraversal(AVLTree root, std::function<void(MonHoc)> visit) {
     }
 }
 
-// Hàm giải phóng bộ nhớ
+
 void FreeAVL(AVLTree &root) {
     if (root != NULL) {
         FreeAVL(root->left);
@@ -189,7 +189,7 @@ void FreeAVL(AVLTree &root) {
     }
 }
 
-// Hàm đếm số node
+
 int CountNodes(AVLTree root) {
     if (root == NULL) return 0;
     return 1 + CountNodes(root->left) + CountNodes(root->right);

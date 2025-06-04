@@ -3,14 +3,12 @@
 #include <cstring>
 #include <iomanip>
 
-// --- Các hàm quản lý cơ bản ---
 
-// Khởi tạo danh sách sinh viên rỗng
 void KhoiTaoDSSinhVien(DanhSachSinhVien &first) {
     first = NULL;
 }
 
-// Giải phóng bộ nhớ của danh sách sinh viên
+
 void GiaiPhongDSSinhVien(DanhSachSinhVien &first) {
     NodeSV* current = first;
     while (current != NULL) {
@@ -21,7 +19,6 @@ void GiaiPhongDSSinhVien(DanhSachSinhVien &first) {
     first = NULL;
 }
 
-// Kiểm tra danh sách rỗng
 bool IsEmpty(const DanhSachSinhVien first) {
     return first == NULL;
 }
@@ -53,8 +50,7 @@ bool ThemSinhVien(DanhSachSinhVien &first, SinhVien sv) {
         return false;
     }
     
-    // Sao chép dữ liệu sinh viên vào node mới
-    // Đảm bảo sao chép an toàn với null termination
+
     strncpy(newNode->data.MASV, sv.MASV, MAX_MASV_LEN);
     newNode->data.MASV[MAX_MASV_LEN] = '\0';
     
@@ -73,7 +69,7 @@ bool ThemSinhVien(DanhSachSinhVien &first, SinhVien sv) {
     strncpy(newNode->data.LOP, sv.LOP, MAX_LOP_LEN);
 	newNode->data.LOP[MAX_LOP_LEN] = '\0';
 
-    // Thêm node vào đầu danh sách
+
     newNode->next = first;
     first = newNode;
     
@@ -116,7 +112,7 @@ bool HieuChinhSinhVien(DanhSachSinhVien first, const char* maSV, const SinhVien 
         return false;
     }
     
-    // Giữ nguyên mã sinh viên (khóa chính), cập nhật các thông tin khác
+ 
     strncpy(node->data.HO, svMoi.HO, MAX_HO_LEN);
     node->data.HO[MAX_HO_LEN] = '\0';
     

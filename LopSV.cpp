@@ -74,7 +74,7 @@ bool HieuChinhLopSV(DanhSachLopSV &ds, const char* maLop, LopSV lopMoi) {
     return true;
 }
 
-// Mo rong mang khi full
+
 void ExtendLopArray(DanhSachLopSV &ds) {
     int new_capacity = ds.capacity == 0 ? 10 : ds.capacity * 2;
     LopSV* new_lop = new (std::nothrow) LopSV[new_capacity];

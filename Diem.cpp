@@ -45,7 +45,7 @@ bool NhapDiemSinhVienLopTC(DanhSachLopTinChi &dsLTC, int maLTC, const char* maSV
     return true;
 }
 
-// Ham nhap diem theo bang
+
 void NhapDiemTheoBang(DanhSachLopTinChi &dsLTC, const DanhSachSinhVien &dsSV, int maLTC) {
     int index = TimLopTinChiTheoMa(dsLTC, maLTC);
     if (index == -1) {
@@ -165,7 +165,7 @@ void InBangDiemMonHoc(const DanhSachLopTinChi &dsLTC, const DanhSachSinhVien &ds
         return;
     }
 
-    // Thu thập danh sách sinh viên
+
     struct DiemSV {
         char MASV[16];
         char HO[31];
@@ -217,7 +217,7 @@ void InBangDiemMonHoc(const DanhSachLopTinChi &dsLTC, const DanhSachSinhVien &ds
     }
     totalSV = idx;
 
-    // sap xep theo ma sinh vien
+ 
     for (int i = 0; i < totalSV - 1; i++) {
         for (int j = 0; j < totalSV - i - 1; j++) {
             if (strcmp(diemArr[j].MASV, diemArr[j + 1].MASV) > 0) {
@@ -324,7 +324,7 @@ void InBangDiemTrungBinhKhoa(const DanhSachLopTinChi &dsLTC, const DanhSachSinhV
         diemArr[i].tongTinChi = tongTinChi;
     }
 
-    // Sap xep theo maSV
+ 
     for (int i = 0; i < totalSV - 1; i++) {
         for (int j = 0; j < totalSV - i - 1; j++) {
             if (strcmp(diemArr[j].MASV, diemArr[j + 1].MASV) > 0) {
@@ -335,7 +335,7 @@ void InBangDiemTrungBinhKhoa(const DanhSachLopTinChi &dsLTC, const DanhSachSinhV
         }
     }
 
-    // In bảng điểm trung bình
+
     std::cout << "\n                   BANG THONG KE DIEM TRUNG BINH KHOA HOC\n";
     std::cout << "Lop: " << maLop << "\n";
     std::cout << "+-----+------------+------------------------------------+----------+\n";
@@ -370,7 +370,7 @@ void InBangDiemTongKet(const DanhSachLopTinChi &dsLTC, const DanhSachSinhVien &d
         return;
     }
 
-    // thu thap danh sach sinh vien va mon hoc
+  
     int totalSV = 0;
     NodeSV* pSV = dsSV;
     while (pSV != NULL) {
@@ -395,14 +395,14 @@ void InBangDiemTongKet(const DanhSachLopTinChi &dsLTC, const DanhSachSinhVien &d
         return;
     }
 
-    // Lay danh sach mon hoc bang cach duyet cay AVL
+   
     std::vector<std::string> maMHList;
     InorderTraversal(dsMH, [&maMHList](MonHoc mh) {
         maMHList.push_back(std::string(mh.MAMH));
     });
     int numMH = maMHList.size();
 
-    // khoi tao mang diem
+  
     int idx = 0;
     pSV = dsSV;
     while (pSV != NULL && idx < totalSV) {
@@ -419,7 +419,7 @@ void InBangDiemTongKet(const DanhSachLopTinChi &dsLTC, const DanhSachSinhVien &d
     }
     totalSV = idx;
 
-    // thu thap diem cao nhat
+   
     for (int i = 0; i < totalSV; i++) {
         for (int j = 0; j < MAX_LTC; j++) {
             if (dsLTC.nodes[j] != NULL && !dsLTC.nodes[j]->huyLop) {
@@ -440,7 +440,7 @@ void InBangDiemTongKet(const DanhSachLopTinChi &dsLTC, const DanhSachSinhVien &d
         }
     }
 
-    // Sap xep theo MASV
+ 
     for (int i = 0; i < totalSV - 1; i++) {
         for (int j = 0; j < totalSV - i - 1; j++) {
             if (strcmp(diemArr[j].MASV, diemArr[j + 1].MASV) > 0) {

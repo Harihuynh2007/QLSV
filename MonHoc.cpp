@@ -11,22 +11,22 @@ NodeAVL* TimMonHocTheoMa(DanhSachMonHoc ds, const char* maMH) {
     return SearchAVL(ds, maMH);
 }
 
-// Hàm thêm môn học
+
 DanhSachMonHoc ThemMonHoc(DanhSachMonHoc ds, MonHoc mh) {
     return InsertAVL(ds, mh);
 }
 
-// Hàm xóa môn học
+
 DanhSachMonHoc XoaMonHoc(DanhSachMonHoc ds, const char* maMH) {
     return DeleteAVL(ds, maMH);
 }
 
-// Hàm cập nhật thông tin môn học
+
 void CapNhatMonHoc(DanhSachMonHoc ds, const char* maMH, MonHoc mhMoi) {
     UpdateAVL(ds, maMH, mhMoi);
 }
 
-// Hàm hỗ trợ để in một môn học
+
 void PrintMonHoc(MonHoc mh, int stt) {
     std::cout << std::left << std::setw(4) << stt
               << " | " << std::setw(10) << mh.MAMH
@@ -35,7 +35,7 @@ void PrintMonHoc(MonHoc mh, int stt) {
               << " | " << std::setw(5) << mh.STCTH << "\n";
 }
 
-// Hàm thu thập môn học từ cây AVL vào mảng
+
 void ThuThapMonHoc(DanhSachMonHoc ds, MonHoc* &arr, int &size, int &capacity) {
     if (ds == NULL) return;
 
@@ -49,10 +49,10 @@ void ThuThapMonHoc(DanhSachMonHoc ds, MonHoc* &arr, int &size, int &capacity) {
         arr = newArr;
     }
 
-    // Thêm môn học vào mảng
+
     arr[size++] = ds->data;
 
-    // Đệ quy cho cây con
+
     ThuThapMonHoc(ds->left, arr, size, capacity);
     ThuThapMonHoc(ds->right, arr, size, capacity);
 }
@@ -69,7 +69,6 @@ void SapXepTheoTenMonHoc(MonHoc* arr, int size) {
     }
 }
 
-// Hàm in danh sách môn học (theo MAMH - mặc định của cây AVL)
 void InDanhSachMonHoc(DanhSachMonHoc ds) {
     if (ds == NULL) {
         std::cout << "Danh sach mon hoc rong.\n";
@@ -94,7 +93,7 @@ void InDanhSachMonHoc(DanhSachMonHoc ds) {
     std::cout << "Tong so mon hoc: " << CountNodes(ds) << "\n";
 }
 
-// Hàm in danh sách môn học đã sắp xếp theo TENMH
+
 void InDanhSachMonHocSapXepTheoTen(DanhSachMonHoc ds) {
     if (ds == NULL) {
         std::cout << "Danh sach mon hoc rong.\n";

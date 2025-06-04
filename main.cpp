@@ -7,7 +7,7 @@
 #include <cstring>
 #include <iomanip>
 
-// Hàm xóa bộ nhớ đệm nhập liệu
+
 void clearInputBuffer() {
     std::cin.clear();
     std::cin.ignore(10000, '\n');
@@ -148,7 +148,7 @@ void hienThiMenu() {
 }
 
 
-// Hàm hiển thị menu môn học
+
 void hienThiMenuMonHoc() {
     std::cout << "\n--- QUAN LY MON HOC ---\n";
     std::cout << "1. Them mon hoc\n";
@@ -160,7 +160,7 @@ void hienThiMenuMonHoc() {
     std::cout << "Nhap lua chon (1-6): ";
 }
 
-// Hàm hiển thị menu sinh viên
+
 void hienThiMenuSinhVien() {
     std::cout << "\n--- QUAN LY SINH VIEN ---\n";
     std::cout << "1. Them sinh vien\n";
@@ -171,7 +171,7 @@ void hienThiMenuSinhVien() {
     std::cout << "Nhap lua chon (1-5): ";
 }
 
-// Hàm hiển thị menu lớp tín chỉ
+
 void hienThiMenuLopTinChi() {
     std::cout << "\n--- QUAN LY LOP TIN CHI ---\n";
     std::cout << "1. Them lop tin chi\n";
@@ -195,7 +195,7 @@ void hienThiMenuLopTinChi() {
 }
 
 
-// Hàm nhập thông tin môn học
+
 void nhapMonHoc(MonHoc &mh) {
     std::cout << "Nhap ma mon hoc (toi da 10 ky tu): ";
     std::cin.getline(mh.MAMH, 11);
@@ -208,7 +208,7 @@ void nhapMonHoc(MonHoc &mh) {
     clearInputBuffer();
 }
 
-// Hàm nhập thông tin sinh viên
+
 void nhapSinhVien(SinhVien &sv) {
     std::cout << "Nhap ma sinh vien (toi da 15 ky tu): ";
     std::cin.getline(sv.MASV, MAX_MASV_LEN + 1);
@@ -224,7 +224,7 @@ void nhapSinhVien(SinhVien &sv) {
     std::cin.getline(sv.LOP, 16);
 }
 
-// Hàm nhập thông tin lớp tín chỉ
+
 void nhapLopTinChi(LopTinChi &ltc, const DanhSachMonHoc &dsMH) {
     std::cout << "Nhap ma mon hoc (toi da 10 ky tu): ";
     std::cin.getline(ltc.MAMH, 11);
@@ -251,7 +251,7 @@ void nhapLopTinChi(LopTinChi &ltc, const DanhSachMonHoc &dsMH) {
     KhoiTaoDSDangKy(ltc.dssvdk);
 }
 
-// Hàm quản lý môn học
+
 void quanLyMonHoc(DanhSachMonHoc &dsMH) {
     int luaChon;
     do {
@@ -303,7 +303,7 @@ void quanLyMonHoc(DanhSachMonHoc &dsMH) {
     } while (luaChon != 6);
 }
 
-// Hàm quản lý sinh viên
+
 void quanLySinhVien(DanhSachSinhVien &dsSV) {
     int luaChon;
     do {
@@ -355,7 +355,7 @@ void quanLySinhVien(DanhSachSinhVien &dsSV) {
     } while (luaChon != 5);
 }
 
-// Hàm quản lý lớp tín chỉ
+
 void quanLyLopTinChi(DanhSachLopTinChi &dsLTC, const DanhSachMonHoc &dsMH, const DanhSachSinhVien &dsSV) {
     int luaChon;
     do {
@@ -539,7 +539,7 @@ int main() {
 	DanhSachSinhVien dsSV;
 	DanhSachLopTinChi dsLTC;
 
-    // Khởi tạo danh sách sinh viên và lớp tín chỉ
+   
     KhoiTaoDSLopSV(dsLopSV);
     KhoiTaoDSSinhVien(dsSV);
     KhoiTaoDSLTC(dsLTC);
@@ -578,12 +578,12 @@ int main() {
 		}
     } while (luaChon != 5);
 	
-	// === Save du lieu truoc khi thoat ===
+
     SaveDanhSachMonHoc(dsMH, "MonHoc.txt");
     SaveDanhSachLopSV(dsLopSV, "LopSV.txt");
     SaveDanhSachLopTinChi(dsLTC, "LopTinChi.txt");
     
-    // Giải phóng bộ nhớ
+
     GiaiPhongDSMonHoc(dsMH);
     GiaiPhongDSSinhVien(dsSV);
     GiaiPhongDSLTC(dsLTC);

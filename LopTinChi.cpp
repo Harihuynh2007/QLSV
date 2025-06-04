@@ -11,7 +11,7 @@
 #include <iomanip>
 #include <new>
 
-// --- Registration list (DanhSachDangKy - Singly Linked List) functions ---
+
 
 void KhoiTaoDSDangKy(DanhSachDangKy &firstDK) {
     firstDK = NULL;
@@ -39,13 +39,13 @@ NodeDK* TimDangKyTheoMASV(DanhSachDangKy firstDK, const char* maSV) {
 
 bool ThemDangKyVaoDSLK(DanhSachDangKy &firstDK, const DangKy &dk) {
     if (TimDangKyTheoMASV(firstDK, dk.MASV) != NULL) {
-        std::cerr << "Lỗi: Sinh viên " << dk.MASV << " đã đăng ký lớp này rồi.\n";
+        std::cerr << "Loi: Sinh vien " << dk.MASV << " da dang ky lop nay roi.\n";
         return false;
     }
 
     NodeDK* newNode = new (std::nothrow) NodeDK;
     if (newNode == NULL) {
-        std::cerr << "Lỗi: Không đủ bộ nhớ để cấp phát NodeDK mới.\n";
+        std::cerr << "Loi: Khong du bo nho de cap phat NodeDK moi.\n";
         return false;
     }
 
@@ -104,7 +104,7 @@ int DemSoLuongDangKy(DanhSachDangKy firstDK) {
     return count;
 }
 
-// --- Credit class list (DanhSachLopTinChi - Array of Pointers) functions ---
+
 
 void KhoiTaoDSLTC(DanhSachLopTinChi &ds) {
     for (int i = 0; i < MAX_LTC; i++) {
@@ -167,13 +167,13 @@ int TimMaLopTCMax(const DanhSachLopTinChi &ds) {
 
 int ThemLopTC(DanhSachLopTinChi &ds, const LopTinChi &lopTCData) {
     if (ds.soLuong >= MAX_LTC) {
-        std::cerr << "Lỗi: Danh sách lớp tín chỉ đã đầy (" << MAX_LTC << " lớp).\n";
+        std::cerr << "Loi: Danh sach lop tin chi da day (" << MAX_LTC << " lop).\n";
         return -1;
     }
 
-    // Kiểm tra trùng MALOPTC
+   
     if (lopTCData.MALOPTC > 0 && TimLopTinChiTheoMa(ds, lopTCData.MALOPTC) != -1) {
-        std::cerr << "Lỗi: Mã lớp tín chỉ " << lopTCData.MALOPTC << " đã tồn tại.\n";
+        std::cerr << "Loi: Ma lop tin chi " << lopTCData.MALOPTC << " da ton tai.\n";
         return -1;
     }
 
@@ -186,13 +186,13 @@ int ThemLopTC(DanhSachLopTinChi &ds, const LopTinChi &lopTCData) {
     }
 
     if (emptyIndex == -1) {
-        std::cerr << "Lỗi: Không tìm thấy vị trí trống để thêm lớp tín chỉ.\n";
+        std::cerr << "Loi: Khong tim thay vi tri trong de them lop tin chi.\n";
         return -1;
     }
 
     ds.nodes[emptyIndex] = new (std::nothrow) LopTinChi;
     if (ds.nodes[emptyIndex] == NULL) {
-        std::cerr << "Lỗi: Không đủ bộ nhớ để cấp phát LopTinChi mới.\n";
+        std::cerr << "Loi: Khong du bo nho de cap phat LopTinChi moi.\n";
         return -1;
     }
 
@@ -284,7 +284,7 @@ void SapXepDSLTC(DanhSachLopTinChi &ds, bool tangDan) {
     delete[] tempArray;
 }
 
-// --- Operation functions combining different data structures ---
+
 
 bool ThemSVVaoLopTC(DanhSachLopTinChi &dsLTC, const DanhSachSinhVien &dsSV, int maLTC, const char* maSV) {
     int index = TimLopTinChiTheoMa(dsLTC, maLTC);
@@ -349,21 +349,21 @@ bool XoaSVKhoiLopTC(DanhSachLopTinChi &dsLTC, int maLTC, const char* maSV) {
 void InDSSVDaDangKyCuaLop(const DanhSachLopTinChi &dsLTC, const DanhSachSinhVien &dsSV, int maLTC) {
     int index = TimLopTinChiTheoMa(dsLTC, maLTC);
     if (index == -1) {
-        std::cout << "Lớp tín chỉ " << maLTC << " không tồn tại!\n";
+        std::cout << "Lop tin chi " << maLTC << " khong ton tai!\n";
         return;
     }
 
     LopTinChi* lop = dsLTC.nodes[index];
     if (lop->soSVDK == 0) {
-        std::cout << "Lớp tín chỉ " << maLTC << " (" << lop->MAMH << ") chưa có sinh viên đăng ký.\n";
+        std::cout << "Lop tin chi " << maLTC << " (" << lop->MAMH << ") chua co sinh vien dang ky.\n";
         return;
     }
 
-    std::cout << "\n         DANH SÁCH SINH VIÊN ĐĂNG KÝ LỚP TÍN CHỈ " << maLTC << "\n";
-    std::cout << "Môn học: " << lop->MAMH << " - Niên khóa: " << lop->nienkhoa
-              << " - Học kỳ: " << lop->hocky << " - Nhóm: " << lop->nhom << "\n";
+    std::cout << "\n         DANH SACH SINH VIEN DANG KY LOP TIN CHI " << maLTC << "\n";
+    std::cout << "Mon hoc: " << lop->MAMH << " - Nien khoa: " << lop->nienkhoa
+              << " - Hoc ky: " << lop->hocky << " - Nhom: " << lop->nhom << "\n";
     std::cout << "+-----+------------+-------------------------+------------------+---------------+\n";
-    std::cout << "| STT |    MASV    | Họ                      | Tên              | Lớp           |\n";
+    std::cout << "| STT |    MASV    | Ho                      | Ten              | Lop           |\n";
     std::cout << "+-----+------------+-------------------------+------------------+---------------+\n";
 
     int stt = 1;
@@ -380,7 +380,7 @@ void InDSSVDaDangKyCuaLop(const DanhSachLopTinChi &dsLTC, const DanhSachSinhVien
             std::cout << std::setw(16) << std::left << nodeSV->data.TEN << " | ";
             std::cout << std::setw(13) << std::left << nodeSV->data.LOP << " |";
         } else {
-            std::cout << std::setw(23) << std::left << "(Không tìm thấy)" << " | ";
+            std::cout << std::setw(23) << std::left << "(Khong tim thay)" << " | ";
             std::cout << std::setw(16) << std::left << "" << " | ";
             std::cout << std::setw(13) << std::left << "" << " |";
         }
@@ -391,13 +391,13 @@ void InDSSVDaDangKyCuaLop(const DanhSachLopTinChi &dsLTC, const DanhSachSinhVien
     }
 
     std::cout << "+-----+------------+-------------------------+------------------+---------------+\n";
-    std::cout << "Tổng số sinh viên đã đăng ký: " << lop->soSVDK << "\n";
+    std::cout << "Tong so sinh vien da dang ky: " << lop->soSVDK << "\n";
 }
 
 void InDSSVSapXepCuaLop(const DanhSachLopTinChi &dsLTC, const DanhSachSinhVien &dsSV, int maLTC) {
     int index = TimLopTinChiTheoMa(dsLTC, maLTC);
     if (index == -1) {
-        std::cout << "Lớp tín chỉ " << maLTC << " không tồn tại!\n";
+        std::cout << "Lop tin chi " << maLTC << " khong ton tai!\n";
         return;
     }
 
@@ -405,7 +405,7 @@ void InDSSVSapXepCuaLop(const DanhSachLopTinChi &dsLTC, const DanhSachSinhVien &
     int count = lop->soSVDK;
 
     if (count == 0) {
-        std::cout << "Lớp tín chỉ " << maLTC << " (" << lop->MAMH << ") chưa có sinh viên đăng ký!\n";
+        std::cout << "Lop tin chi " << maLTC << " (" << lop->MAMH << ") chua co sinh vien dang ky!\n";
         return;
     }
 
@@ -418,7 +418,7 @@ void InDSSVSapXepCuaLop(const DanhSachLopTinChi &dsLTC, const DanhSachSinhVien &
 
     SVInfo* svArr = new (std::nothrow) SVInfo[count];
     if (!svArr) {
-        std::cerr << "Lỗi: Không đủ bộ nhớ để sắp xếp danh sách sinh viên.\n";
+        std::cerr << "Loi: Khong du bo nho de sap xep danh sach sinh vien.\n";
         return;
     }
 
@@ -434,8 +434,8 @@ void InDSSVSapXepCuaLop(const DanhSachLopTinChi &dsLTC, const DanhSachSinhVien &
             strcpy(svArr[idx].TEN, nodeSV->data.TEN);
             strcpy(svArr[idx].LOP, nodeSV->data.LOP);
         } else {
-            strcpy(svArr[idx].HO, "(Không");
-            strcpy(svArr[idx].TEN, "tìm thấy)");
+            strcpy(svArr[idx].HO, "(Khong");
+            strcpy(svArr[idx].TEN, "tim thay)");
             strcpy(svArr[idx].LOP, "");
         }
 
@@ -461,11 +461,11 @@ void InDSSVSapXepCuaLop(const DanhSachLopTinChi &dsLTC, const DanhSachSinhVien &
         }
     }
 
-    std::cout << "\n      DANH SÁCH SINH VIÊN ĐĂNG KÝ LỚP TÍN CHỈ " << maLTC << " (SẮP XẾP THEO TÊN, HỌ)\n";
-    std::cout << "Môn học: " << lop->MAMH << " - Niên khóa: " << lop->nienkhoa
-              << " - Học kỳ: " << lop->hocky << " - Nhóm: " << lop->nhom << "\n";
+    std::cout << "\n      DANH SACH SINH VIEN DANG KY LOP TIN CHI " << maLTC << " (SAP XEP THEO TEN, HO)\n";
+    std::cout << "Mon hoc: " << lop->MAMH << " - Nien khoa: " << lop->nienkhoa
+              << " - Hoc ky: " << lop->hocky << " - Nhom: " << lop->nhom << "\n";
     std::cout << "+-----+------------+-------------------------+------------------+---------------+\n";
-    std::cout << "| STT |    MASV    | Họ                      | Tên              | Lớp           |\n";
+    std::cout << "| STT |    MASV    | Ho                      | Ten              | Lop           |\n";
     std::cout << "+-----+------------+-------------------------+------------------+---------------+\n";
 
     for (int i = 0; i < count; i++) {
@@ -473,14 +473,11 @@ void InDSSVSapXepCuaLop(const DanhSachLopTinChi &dsLTC, const DanhSachSinhVien &
         std::cout << std::setw(10) << std::left << svArr[i].MASV << " | ";
         std::cout << std::setw(23) << std::left << svArr[i].HO << " | ";
         std::cout << std::setw(16) << std::left << svArr[i].TEN << " | ";
-        
-        std::cout << "[DEBUG_LOP=" << svArr[i].LOP << "] ";
-
         std::cout << std::setw(13) << std::left << svArr[i].LOP << " |\n";
     }
 
     std::cout << "+-----+------------+-------------------------+------------------+---------------+\n";
-    std::cout << "Tổng số sinh viên đã đăng ký: " << count << "\n";
+    std::cout << "Tong so sinh vien da dang ky: " << count << "\n";
 
     delete[] svArr;
 }
@@ -501,26 +498,26 @@ void HuyLopTuDongTheoNienKhoaHocKy(DanhSachLopTinChi &ds, int nienKhoa, int hocK
             if (ds.nodes[i]->soSVDK < ds.nodes[i]->sv_min) {
                 ds.nodes[i]->huyLop = true;
                 count++;
-                std::cout << "Đã hủy lớp tín chỉ " << ds.nodes[i]->MALOPTC
+                std::cout << "da huy lop tin chi " << ds.nodes[i]->MALOPTC
                           << " (MAMH: " << ds.nodes[i]->MAMH
-                          << ") do số sinh viên đăng ký (" << ds.nodes[i]->soSVDK
-                          << ") nhỏ hơn số tối thiểu (" << ds.nodes[i]->sv_min << ").\n";
+                          << ") do so sinh vien dang ki (" << ds.nodes[i]->soSVDK
+                          << ") nho hon so toi thieu (" << ds.nodes[i]->sv_min << ").\n";
             }
         }
     }
 
     if (count == 0) {
-        std::cout << "Không có lớp tín chỉ nào trong niên khóa " << nienKhoa
-                  << ", học kỳ " << hocKy << " cần hủy.\n";
+        std::cout << "Khong co lop tin chi nao trong nien khoa " << nienKhoa
+                  << " hoc ky " << hocKy << " can huy.\n";
     } else {
-        std::cout << "Đã hủy " << count << " lớp tín chỉ.\n";
+        std::cout << "Da huy " << count << " lop tin chi.\n";
     }
 }
  
 void InBangDiemLop(const DanhSachLopTinChi &dsLTC, const DanhSachSinhVien &dsSV, int maLTC) {
     int index = TimLopTinChiTheoMa(dsLTC, maLTC);
     if (index == -1) {
-        std::cout << "Lớp tín chỉ " << maLTC << " không tồn tại!\n";
+        std::cout << "Lop tin chi " << maLTC << " khong ton tai!\n";
         return;
     }
 
@@ -528,7 +525,7 @@ void InBangDiemLop(const DanhSachLopTinChi &dsLTC, const DanhSachSinhVien &dsSV,
     int count = lop->soSVDK;
 
     if (count == 0) {
-        std::cout << "Lớp tín chỉ " << maLTC << " (" << lop->MAMH << ") chưa có sinh viên đăng ký!\n";
+        std::cout << "Lop tin chi " << maLTC << " (" << lop->MAMH << ") chua co sinh vien dang ky!\n";
         return;
     }
 
@@ -542,7 +539,7 @@ void InBangDiemLop(const DanhSachLopTinChi &dsLTC, const DanhSachSinhVien &dsSV,
 
     DiemSV* diemArr = new (std::nothrow) DiemSV[count];
     if (!diemArr) {
-        std::cerr << "Lỗi: Không đủ bộ nhớ để tạo bảng điểm.\n";
+        std::cerr << "Loi: Khong du bo nho de tao bang diem.\n";
         return;
     }
 
@@ -558,8 +555,8 @@ void InBangDiemLop(const DanhSachLopTinChi &dsLTC, const DanhSachSinhVien &dsSV,
             strcpy(diemArr[idx].HO, nodeSV->data.HO);
             strcpy(diemArr[idx].TEN, nodeSV->data.TEN);
         } else {
-            strcpy(diemArr[idx].HO, "(Không");
-            strcpy(diemArr[idx].TEN, "tìm thấy)");
+            strcpy(diemArr[idx].HO, "(Khong ");
+            strcpy(diemArr[idx].TEN, "tim thay)");
         }
 
         idx++;
@@ -577,11 +574,11 @@ void InBangDiemLop(const DanhSachLopTinChi &dsLTC, const DanhSachSinhVien &dsSV,
         }
     }
 
-    std::cout << "\n                   BẢNG ĐIỂM LỚP TÍN CHỈ " << maLTC << "\n";
-    std::cout << "Môn học: " << lop->MAMH << " - Niên khóa: " << lop->nienkhoa
-              << " - Học kỳ: " << lop->hocky << " - Nhóm: " << lop->nhom << "\n";
+    std::cout << "\n                   BANG DIEM LOP TIN CHI " << maLTC << "\n";
+    std::cout << "Mon hoc: " << lop->MAMH << " - Nien khoa: " << lop->nienkhoa
+              << " - Hoc ky: " << lop->hocky << " - Nhom: " << lop->nhom << "\n";
     std::cout << "+-----+------------+------------------------------------+-------+\n";
-    std::cout << "| STT |    MASV    | Họ và Tên                          | Điểm  |\n";
+    std::cout << "| STT |    MASV    | Ho va ten                          | Điem  |\n";
     std::cout << "+-----+------------+------------------------------------+-------+\n";
 
     std::cout << std::fixed << std::setprecision(2);
@@ -605,7 +602,7 @@ void InBangDiemLop(const DanhSachLopTinChi &dsLTC, const DanhSachSinhVien &dsSV,
     }
 
     std::cout << "+-----+------------+------------------------------------+-------+\n";
-    std::cout << "Tổng số sinh viên: " << count << "\n";
+    std::cout << "Tong so sinh vien: " << count << "\n";
 
     delete[] diemArr;
 }
@@ -672,7 +669,7 @@ void LoadDanhSachLopTinChi(DanhSachLopTinChi &ds, const char* filename) {
         std::string token;
 
         if (currentLTC == NULL) {
-            // Đây là dòng thông tin LopTinChi
+   
             currentLTC = new LopTinChi;
             std::getline(ss, token, '|'); currentLTC->MALOPTC = stoi(token);
             std::getline(ss, token, '|'); strcpy(currentLTC->MAMH, token.c_str());
@@ -686,7 +683,7 @@ void LoadDanhSachLopTinChi(DanhSachLopTinChi &ds, const char* filename) {
 
             KhoiTaoDSDangKy(currentLTC->dssvdk);
 
-            // Tìm vị trí trống trong ds.nodes[]
+     
             int emptyIndex = -1;
             for (int i = 0; i < MAX_LTC; i++) {
                 if (ds.nodes[i] == NULL) {
@@ -704,7 +701,7 @@ void LoadDanhSachLopTinChi(DanhSachLopTinChi &ds, const char* filename) {
                 currentLTC = NULL;
             }
         } else {
-            // Đây là dòng thông tin sinh viên đăng ký
+       
             DangKy dk;
             std::getline(ss, token, '|'); strcpy(dk.MASV, token.c_str());
             std::getline(ss, token, '|'); dk.DIEM = stof(token);
@@ -736,7 +733,7 @@ void DangKyLopTinChiTheoHocKy(DanhSachLopTinChi &dsLTC, const DanhSachSinhVien &
     std::cin >> hocKy;
     std::cin.ignore(10000, '\n'); // clear buffer
 
-    // Khởi tạo mảng lưu các lớp hợp lệ
+
     const int MAX_LOP_HOPLE = 1000;
     int lopHopLe[MAX_LOP_HOPLE];
     int soLop = 0;
