@@ -113,18 +113,15 @@ void SaveDanhSachLopSV(const DanhSachLopSV &ds, const char* filename) {
     }
 
     for (int i = 0; i < ds.n; i++) {
-        // Ghi thông tin lớp
+        //ghi tt lop
         file << ds.lop[i].MALOP << "|"
              << ds.lop[i].TENLOP << std::endl;
-        
-        // Ghi danh sách sinh viên của lớp
+        // dslk
         SaveDanhSachSinhVien(ds.lop[i].dssv, file);
 
-        // Kết thúc 1 lớp
         file << "#ENDCLASS" << std::endl;
     }
 
-    // Ghi kết thúc file
     file << "#END" << std::endl;
     file.close();
 }
@@ -151,7 +148,7 @@ void LoadDanhSachLopSV(DanhSachLopSV &ds, const char* filename) {
         std::string token;
 
         if (currentIndex == -1) {
-            // Dòng MALOP|TENLOP
+            // docthongtinlop
             LopSV lop;
             std::getline(ss, token, '|'); strcpy(lop.MALOP, token.c_str());
             std::getline(ss, token, '|'); strcpy(lop.TENLOP, token.c_str());
@@ -159,7 +156,7 @@ void LoadDanhSachLopSV(DanhSachLopSV &ds, const char* filename) {
             ThemLopSV(ds, lop);
             currentIndex = ds.n - 1;
         } else {
-            // Dòng SinhVien
+            // docsvcualophientai
             SinhVien sv;
             std::getline(ss, token, '|'); strcpy(sv.MASV, token.c_str());
             std::getline(ss, token, '|'); strcpy(sv.HO, token.c_str());
