@@ -371,7 +371,6 @@ void InBangDiemTongKet(const DanhSachLopTinChi &dsLTC, const DanhSachSinhVien &d
         std::cout << "Loi: Ma lop khong hop le!\n";
         return;
     }
-
   
     int totalSV = 0;
     NodeSV* pSV = dsSV;
@@ -410,7 +409,7 @@ void InBangDiemTongKet(const DanhSachLopTinChi &dsLTC, const DanhSachSinhVien &d
 	        for (int j = 0; j < MAX_LTC && !monDuocHoc; j++) {
 	            if (dsLTC.nodes[j] != NULL && !dsLTC.nodes[j]->huyLop &&
 	                strcmp(dsLTC.nodes[j]->MAMH, mh.MAMH) == 0) {
-	
+					//dsdksv cua ltc
 	                NodeDK* pDK = dsLTC.nodes[j]->dssvdk;
 	                while (pDK != NULL) {
 	                    if (strcmp(pDK->data.MASV, diemArr[i].MASV) == 0 && pDK->data.daCoDiem) {
